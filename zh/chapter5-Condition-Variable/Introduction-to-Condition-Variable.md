@@ -145,19 +145,19 @@ void wait (unique_lock&lt;mutex&gt;&amp; lck, Predicate pred); </pre></td></tr>
 
 程序执行结果如下：
 
-    concu    rrency ) ./ConditionVariable-wait 
+    concurrency ) ./ConditionVariable-wait 
     1
-        2
-        3
-        4
-        5
-        6
-        7
-        8
-        9
-        10
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
 
-#    # `std::condition_variable::wait_for()` 介绍 ##
+## `std::condition_variable::wait_for()` 介绍 ##
 
 <table>
 <tr class="odd"><th>unconditional (1)</th>
