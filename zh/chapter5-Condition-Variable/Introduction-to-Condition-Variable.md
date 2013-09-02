@@ -351,6 +351,16 @@ bool wait_until (unique_lock&lt;mutex&gt;&amp; lck,
 
 # `std::cv_status` 枚举类型介绍 #
 
+<table>
+<tr>
+<td><samp><span style="font-size: 14px;">cv_status::no_timeout</span></samp></td>
+<td><span style="font-size: 14px;">wait_for 或者 wait_until 没有超时，即在规定的时间段内线程收到了通知。</span></td>
+</tr>
+<tr>
+<td><samp><span style="font-size: 14px;">cv_status::timeout</span></samp></td>
+<td><span style="font-size: 14px;"><span style="font-size: 14px;">wait_for 或者 wait_until 超时。</span></span></td>
+</tr>
+</table>
 
 # `std::notify_all_at_thread_exit` #
 
