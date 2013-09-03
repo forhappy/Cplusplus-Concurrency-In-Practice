@@ -67,7 +67,7 @@
 </tr>
 </table>
 
-不过 `std::future` 的拷贝构造函数是被禁用的，只提供了默认的构造函数和 `move` 构造函数（注：C++ 新特新）。另外，`std::future` 的普通赋值操作也被禁用，只提供了 `move` 赋值操作。如下代码所示：
+不过 `std::future` 的拷贝构造函数是被禁用的，只提供了默认的构造函数和 `move` 构造函数（注：C++ 新特性）。另外，`std::future` 的普通赋值操作也被禁用，只提供了 `move` 赋值操作。如下代码所示：
 
     std::future<int> fut;           // 默认构造函数
     fut = std::async(do_some_task);   // move-赋值操作
