@@ -16,21 +16,21 @@
 ### Windows 多线程编程指南 ###
 
 
-##第三章 线程(std::thread)详解  ##
+##第三章 线程详解  ##
 
 ### [`std::thread` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md "std::thread 入门介绍") ###
 
 
-##第四章 互斥量(std::mutex)与锁 ##
+##第四章 互斥量与锁 ##
 
 ### [`std::mutex` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/Introduction-to-Mutex.md "std::mutex 入门介绍") ###
 
 
-##第五章 条件变量(std::condition_variable)与线程同步 ##
+##第五章 条件变量与线程同步 ##
 
 ### [`std::condition_variable` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/Introduction-to-Condition-Variable.md "std::condition_variable 入门介绍") ###
 
-##第六章 异步任务(std::promise, std::future)详解 ##
+##第六章 异步任务详解 ##
 
 ### [`std::future` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/Introduction-to-Future-future%26shared_future.md "std::future 入门介绍") ###
 
@@ -39,7 +39,7 @@
 ### [`std::packaged_task` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/Introduction-to-Future-packaged_task.md "std::packaged_task 入门介绍") ###
 
 
-##第七章 原子类型(std::atomic)详解  ##
+##第七章 原子类型详解  ##
 
 
 ### [`std::atomic_flag` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/Introduction-to-Atomic-atomic_flag.md "std::atomic_flag 入门介绍") ###
