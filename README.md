@@ -1,5 +1,5 @@
-﻿A-Detailed-Cplusplus-Concurrency-Tutorial
-=========================================
+﻿> 注：本书是个人在空余时间写的，由于时间仓促，加上自身水平有限，不可能写的很完美，难免出现错误，不过后续我会坚持完善这一系列的文章。也希望感兴趣的同学和我一起完成。
+
 
 # C++ 并发编程指南 #
 本书计划分为 11 章, 分别如下安排:
@@ -16,7 +16,7 @@
 ### Windows 多线程编程指南 ###
 
 
-##第三章 线程(std:：thread)详解  ##
+##第三章 线程(std::thread)详解  ##
 
 ### [`std::thread` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md "std::thread 入门介绍") ###
 
@@ -61,3 +61,5 @@
 
 ##附录 C++11 新标准概览 ##
 
+
+> 尾注：以上是本书的目录，由于本书还处于早期阶段，内容较少，只列出了大致的提纲，可能后续还会有变更，我会坚持更新本书的内容(争取每周 1 - 2 篇吧)。
