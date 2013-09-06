@@ -2,35 +2,35 @@
 
 总地来说，C++11 标准库中的 `std::atomic` 针对整形(`integral`)和指针类型的特化版本新增了一些算术运算和逻辑运算操作。具体如下：
 
-integral fetch_add(integral, memory_order = memory_order_seq_cst) volatile;
-integral fetch_add(integral, memory_order = memory_order_seq_cst);
-integral fetch_sub(integral, memory_order = memory_order_seq_cst) volatile;
-integral fetch_sub(integral, memory_order = memory_order_seq_cst);
-integral fetch_and(integral, memory_order = memory_order_seq_cst) volatile;
-integral fetch_and(integral, memory_order = memory_order_seq_cst);
-integral fetch_or(integral, memory_order = memory_order_seq_cst) volatile;
-integral fetch_or(integral, memory_order = memory_order_seq_cst);
-integral fetch_xor(integral, memory_order = memory_order_seq_cst) volatile;
-integral fetch_xor(integral, memory_order = memory_order_seq_cst);
- 
-integral operator++(int) volatile;
-integral operator++(int);
-integral operator--(int) volatile;
-integral operator--(int);
-integral operator++() volatile;
-integral operator++();
-integral operator--() volatile;
-integral operator--();
-integral operator+=(integral) volatile;
-integral operator+=(integral);
-integral operator-=(integral) volatile;
-integral operator-=(integral);
-integral operator&=(integral) volatile;
-integral operator&=(integral);
-integral operator|=(integral) volatile;
-integral operator|=(integral);
-integral operator^=(integral) volatile;
-integral operator^=(integral);
+    integral fetch_add(integral, memory_order = memory_order_seq_cst) volatile;
+    integral fetch_add(integral, memory_order = memory_order_seq_cst);
+    integral fetch_sub(integral, memory_order = memory_order_seq_cst) volatile;
+    integral fetch_sub(integral, memory_order = memory_order_seq_cst);
+    integral fetch_and(integral, memory_order = memory_order_seq_cst) volatile;
+    integra    l fetch_and(integral, memory_order = memory_order_seq_cst);
+    integral fetch_or(integral, memory_order = memory_order_seq_cst) volatile;
+    integral fetch_or(integral, memory_order = memory_order_seq_cst);
+    integral fetch_xor(integral, memory_order = memory_order_seq_cst) volatile;
+    integral fetch_xor(integral, memory_order = memory_order_seq_cst);
+     
+    integral operator++(int) volatile;
+    integral operator++(int);
+    integral operator--(int) volatile;
+    integral operator--(int);
+    integral operator++() volatile;
+    integral operator++();
+    integral operator--() volatile;
+    integral operator--();
+    integral operator+=(integral) volatile;
+    integral operator+=(integral);
+    integral operator-=(integral) volatile;
+    integral operator-=(integral);
+    integral operator&=(integral) volatile;
+    integral operator&=(integral);
+    integral operator|=(integral) volatile;
+    integral operator|=(integral);
+    integral operator^=(integral) volatile;
+    integral operator^=(integral);
 
 下面我们来简单介绍以上的 `std::atomic` 特化版本的成员函数。
 
