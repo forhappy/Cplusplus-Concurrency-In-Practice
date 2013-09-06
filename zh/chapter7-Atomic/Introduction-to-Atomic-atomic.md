@@ -1,4 +1,4 @@
-﻿一文介绍了 C++11 中最简单的原子类型 `std::atomic_flag`，但是 `std::atomic_flag` 过于简单，只提供了 `test_and_set` 和 `clear` 两个 API，不能满足其他需求(如 `store`, `load`, `exchange`, `compare_exchange` 等)，因此本文将介绍功能更加完善的 `std::atomic` 类。
+﻿[C++11 并发指南七(atomic 类型详解一 atomic_flag 介绍)](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/Introduction-to-Atomic-atomic_flag.md) 一文介绍了 C++11 中最简单的原子类型 `std::atomic_flag`，但是 `std::atomic_flag` 过于简单，只提供了 `test_and_set` 和 `clear` 两个 API，不能满足其他需求(如 `store`, `load`, `exchange`, `compare_exchange` 等)，因此本文将介绍功能更加完善的 `std::atomic` 类。
 
 # std::atomic 基本介绍 #
 
@@ -24,7 +24,7 @@ C++11 标准中的基本 `std::atomic` 模板定义如下：
         bool compare_exchange_weak(T &, T, memory_order, memory_order) volatile;
         bool compare_exchange_weak(T &, T, memory_order, memory_order);
         bool compare_exchange_strong(T &, T, memory_order, memory_order) volatile;
-        bool compare_exchange_strong(T &, T, memory_order, memory_order);
+        bool compare_exchange_strong(T &, T, memory_o    rder, memory_order);
         bool compare_exchange_weak(T &, T, memory_order = memory_order_seq_cst) volatile;
         bool compare_exchange_weak(T &, T, memory_order = memory_order_seq_cst);
         bool compare_exchange_strong(T &, T, memory_order = memory_order_seq_cst) volatile;
@@ -588,10 +588,10 @@ bool compare_exchange_weak (T&amp; expected, T val,
 
 请看下面的例子（参考）：
 
-#include <iostream>       // std::cout
-#include <atomic>         // std::atomic
-#include <thread>         // std::thread
-#include <vector>         // std::vector
+    #include <iostream>       // std::cout
+    #include <atomic>         // std::atomic
+    #include <thread>         // std::thread
+    #include <vector>         // std::vector
  
     // a simple global linked list:
     struct Node { int value; Node* next; };
