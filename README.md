@@ -44,6 +44,8 @@
 
 ### [`std::atomic_flag` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/Introduction-to-Atomic-atomic_flag.md "std::atomic_flag 入门介绍") ###
 
+### [ `std::atomic` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/Introduction-to-Atomic-atomic.md "std::atomic 入门介绍") ###
+
 
 ##第八章 C++11 内存模型 ##
 
