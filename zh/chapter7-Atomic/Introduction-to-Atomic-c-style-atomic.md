@@ -1,0 +1,976 @@
+﻿前面三篇文章《C++11 并发指南七(atomic 类型详解一 atomic_flag 介绍)》、《C++11 并发指南七( atomic 类型详解二 std::atomic )》、《C++11 并发指南七(atomic 类型详解三 std::atomic (续))》都是采用 C++ 的方式介绍原子对象，本节我会给大家介绍 C++11 原子操作中 C 风格的 API。
+
+总地来说，C++11 标准中规定了两大类原子对象，`std::atomic_flag` 和 `std::atomic`，前者 `std::atomic_flag` 一种最简单的原子布尔类型，只支持两种操作，test-and-set 和 clear。而 `std::atomic` 是模板类，一个模板类型为 T 的原子对象中封装了一个类型为 T 的值，并且C++11 标准中除了定义基本 `std::atomic` 模板类型外，还提供了针对整形(`integral`)和指针类型的特化实现，提供了大量的 API，极大地方便了开发者使用。下面我分别介绍基于 `std::atomic_flag` 和 `std::atomic` 的 C 风格 API。
+
+## 基于 `std::atomic_flag` 类型的 C 风格 API ##
+
+### `atomic_flag_test_and_set` ###
+
+
+
+    bool atomic_flag_test_and_set (volatile atomic_flag* obj) noexcept;
+    bool atomic_flag_test_and_set (atomic_flag* obj) noexcept;
+
+检测并设置 `std::atomic_flag` 的值，并返回 `std::atomic_flag` 的旧值，和 `std::atomic::test_and_set()` 成员函数的功能相同，整个过程也是原子的，默认的内存序为`memory_order_seq_cst`。
+
+### `atomic_flag_test_and_set_explicit` ###
+
+    bool atomic_flag_test_and_set (volatile atomic_flag* obj, memory_order sync) noexcept;
+    bool atomic_flag_test_and_set (atomic_flag* obj, memory_order sync) noexcept;
+
+检测并设置 `std::atomic_flag` 的值，并返回 `std::atomic_flag` 的旧值，和 `std::atomic::test_and_set()` 成员函数的功能相同，整个过程也是原子的。`sync` 参数指定了内存序（Memory Order），可能的取值如下：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_flag_clear` ###
+
+    void atomic_flag_clear (volatile atomic_flag* obj) noexcept;
+    void atomic_flag_clear (atomic_flag* obj) noexcept;
+
+清除 `std::atomic_flag` 对象，并设置它的值为 `false`，和 `std::atomic::clear()` 成员函数的功能相同，整个过程也是原子的，默认的内存序为 `memory_order_seq_cst`。
+
+### `atomic_flag_clear_explicit` ###
+
+    void atomic_flag_clear (volatile atomic_flag* obj, memory_order sync) noexcept;
+    void atomic_flag_clear (atomic_flag* obj, memory_order sync) noexcept;
+
+清除 `std::atomic_flag` 对象，并设置它的值为 `false`，和 `std::atomic::clear()` 成员函数的功能相同，整个过程也是原子的，`sync` 参数指定了内存序（Memory Order），可能的取值如下：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `基于 std::atomic 模板类型的 C 风格 API` ###
+
+### `atomic_is_lock_free` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt; bool atomic_is_lock_free (const volatile atomic&lt;T&gt;* obj) noexcept;
+template &lt;class T&gt; bool atomic_is_lock_free (const atomic&lt;T&gt;* obj) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>bool atomic_is_lock_free (const volatile A* obj) noexcept;
+bool atomic_is_lock_free (const A* obj) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+判断该 `std::atomic` 对象是否具备 lock-free 的特性。如果某个对象满足 lock-free 特性，在多个线程访问该对象时不会导致线程阻塞。(可能使用某种事务内存 transactional memory 方法实现 lock-free 的特性)。
+
+### `atomic_init` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt; void atomic_init (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; void atomic_init (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>void atomic_init (volatile A* obj, T val) noexcept;
+void atomic_init (A* obj, T val) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+初始化原子对象。val 指定原子对象的初始值。如果对一个已初始化的原子对象再次调用 `atomic_init()`，则会导致未定义行为(`undefined behavior`)，如果你想修改原子对象的值，应该使用 std::atomic_store();
+
+### `atomic_store` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt; void atomic_store (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; void atomic_store (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>void atomic_store (volatile A* obj, T val) noexcept;
+void atomic_store (A* obj, T val) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+修改原子对象的值，默认的内存序为 `memory_order_seq_cst`。该函数相当于 `std::atomic` 对象的 `store` 或者 `operator=()` 成员函数，如果你需要显式指定内存序，应该使用 `atomic_store_explicit`。
+
+atomic_store_explicit
+修改原子对象的值。该函数相当于 `std::atomic` 对象的 `store` 或者 `operator=()` 成员函数，`sync` 指定了内存序，可取的参数为：
+
+<table class="boxed">
+<tbody>
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</tbody>
+</table>
+
+### `atomic_load` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt; T atomic_load (const volatile atomic&lt;T&gt;* obj) noexcept;
+template &lt;class T&gt; T atomic_load (const atomic&lt;T&gt;* obj) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_load (const volatile A* obj) noexcept;
+T atomic_load (const A* obj) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+读取被封装的值，默认的内存序为 `memory_order_seq_cst`。该函数与 `std::atomic` 对象的`atomic::load()` 和 `atomic::operator T()` 成员函数等价。
+
+### `atomic_load_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+T atomic_load_explicit (const volatile atomic&lt;T&gt;* obj, memory_order sync) noexcept;
+template &lt;class T&gt;
+T atomic_load_explicit (const atomic&lt;T&gt;* obj, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_load_explicit (const volatile A* obj, memory_order sync) noexcept;
+T atomic_load_explicit (const A* obj, memory_order sync) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+读取被封装的值，参数 `sync` 设置内存序(Memory Order)，可能的取值如下：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+该函数与 `std::atomic` 对象的 `atomic::load()` 成员函数等价。
+
+### `atomic_exchange` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt; T atomic_exchange (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; T atomic_exchange (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_exchange (volatile A* obj, T val) noexcept;
+T atomic_exchange (A* obj, T val) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+读取并修改被封装的值，`exchange` 会将 `val` 指定的值替换掉之前该原子对象封装的值，并返回之前该原子对象封装的值，整个过程是原子的(因此 `exchange` 操作也称为 read-modify-write 操作)。该函数与 `std::atomic` 对象的 `atomic::exchange()` 成员函数等价。
+
+### `atomic_exchange_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+T atomic_store_explicit (volatile atomic&lt;T&gt;* obj, T val, memory_order sync) noexcept;
+template &lt;class T&gt;
+T atomic_store_explicit (atomic&lt;T&gt;* obj, T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_store_explicit (volatile A* obj, T val, memory_order sync) noexcept;
+T atomic_store_explicit (A* obj, T val, memory_order sync) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+读取并修改被封装的值，`exchange` 会将 `val` 指定的值替换掉之前该原子对象封装的值，并返回之前该原子对象封装的值，整个过程是原子的(因此 `exchange` 操作也称为 read-modify-write 操作)。`sync` 参数指定内存序(Memory Order)，可能的取值如下：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_compare_exchange_weak` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+bool atomic_compare_exchange_weak (volatile atomic&lt;T&gt;* obj, T* expected, T val) noexcept;
+template &lt;class T&gt;
+bool atomic_compare_exchange_weak (atomic&lt;T&gt;* obj, T* expected, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>bool atomic_compare_exchange_weak (volatile A* obj, T* expected, T val) noexcept;
+bool atomic_compare_exchange_weak (A* obj, T* expected, T val) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+比较并交换被封装的值(`weak`)与参数 `expected` 所指定的值是否相等，如果：
+
+1. 相等，则用 val 替换原子对象的旧值。
+2. 不相等，则用原子对象的旧值替换 `expected` ，因此调用该函数之后，如果被该原子对象封装的值与参数 `expected` 所指定的值不相等，`expected` 中的内容就是原子对象的旧值。
+
+该函数通常会读取原子对象封装的值，如果比较为 `true`(即原子对象的值等于 `expected`)，则替换原子对象的旧值，但整个操作是原子的，在某个线程读取和修改该原子对象时，另外的线程不能对读取和修改该原子对象。
+
+注意，该函数直接比较原子对象所封装的值与参数 `expected` 的物理内容，所以某些情况下，对象的比较操作在使用 `operator==()` 判断时相等，但 `atomic_compare_exchange_weak` 判断时却可能失败，因为对象底层的物理内容中可能存在位对齐或其他逻辑表示相同但是物理表示不同的值(比如 `true` 和 2 或 3，它们在逻辑上都表示"真"，但在物理上两者的表示并不相同)。
+
+与 `atomic_compare_exchange_strong` 不同, `weak` 版本的 `compare-and-exchange` 操作允许(*`spuriously`* 地)返回 `false`(即原子对象所封装的值与参数 `expected` 的物理内容相同，但却仍然返回 `false`)，不过在某些需要循环操作的算法下这是可以接受的，并且在一些平台下 `atomic_compare_exchange_weak` 的性能更好 。如果 `atomic_compare_exchange_weak` 的判断确实发生了伪失败(`spurious failures`)——即使原子对象所封装的值与参数 `expected` 的物理内容相同，但判断操作的结果却为 `false`，`atomic_compare_exchange_weak` 函数返回 `false`，并且参数 `expected` 的值不会改变。
+
+### `atomic_compare_exchange_weak_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+bool atomic_compare_exchange_weak_explicit (volatile atomic&lt;T&gt;* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;
+template &lt;class T&gt;
+bool atomic_compare_exchange_weak_explicit (atomic&lt;T&gt;* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>bool atomic_compare_exchange_weak_explicit (volatile A* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;
+bool atomic_compare_exchange_weak_explicit (A* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+比较并交换被封装的值(`weak`)与参数 `expected` 所指定的值是否相等，如果：
+
+1. 相等，则用 `val` 替换原子对象的旧值。
+2. 不相等，则用原子对象的旧值替换 `expected` ，因此调用该函数之后，如果被该原子对象封装的值与参数 `expected` 所指定的值不相等，`expected` 中的内容就是原子对象的旧值。
+
+该函数通常会读取原子对象封装的值，如果比较为 `true`(即原子对象的值等于 `expected`)，则替换原子对象的旧值，但整个操作是原子的，在某个线程读取和修改该原子对象时，另外的线程不能对读取和修改该原子对象。
+
+内存序（Memory Order）的选择取决于比较操作结果，如果比较结果为 `true`(即原子对象的值等于 `expected`)，则选择参数 `success` 指定的内存序，否则选择参数 `failure` 所指定的内存序。
+
+注意，该函数直接比较原子对象所封装的值与参数 `expected` 的物理内容，所以某些情况下，对象的比较操作在使用 `operator==()` 判断时相等，但 `atomic_compare_exchange_weak` 判断时却可能失败，因为对象底层的物理内容中可能存在位对齐或其他逻辑表示相同但是物理表示不同的值(比如 `true` 和 2 或 3，它们在逻辑上都表示"真"，但在物理上两者的表示并不相同)。
+
+与 `atomic_compare_exchange_strong` 不同, `weak` 版本的 compare-and-exchange 操作允许(*`spuriously`* 地)返回 `false`(即原子对象所封装的值与参数 `expected` 的物理内容相同，但却仍然返回 `false`)，不过在某些需要循环操作的算法下这是可以接受的，并且在一些平台下 `atomic_compare_exchange_weak` 的性能更好 。如果 `atomic_compare_exchange_weak` 的判断确实发生了伪失败(`spurious failures`)——即使原子对象所封装的值与参数 `expected` 的物理内容相同，但判断操作的结果却为 `false`，`atomic_compare_exchange_weak函数返回` false，并且参数 `expected` 的值不会改变。
+
+对于某些不需要采用循环操作的算法而言, 通常采用 `atomic_compare_exchange_strong` 更好。另外，该函数的内存序由  `sync` 参数指定，可选条件如下：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_compare_exchange_strong` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+bool atomic_compare_exchange_strong (volatile atomic&lt;T&gt;* obj, T* expected, T val) noexcept;
+template &lt;class T&gt;
+bool atomic_compare_exchange_strong (atomic&lt;T&gt;* obj, T* expected, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>bool atomic_compare_exchange_strong (volatile A* obj, T* expected, T val) noexcept;
+bool atomic_compare_exchange_strong (A* obj, T* expected, T val) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+比较并交换被封装的值(`strong`)与参数 `expected` 所指定的值是否相等，如果：
+
+1. 相等，则用 `val` 替换原子对象的旧值。
+2. 不相等，则用原子对象的旧值替换 `expected` ，因此调用该函数之后，如果被该原子对象封装的值与参数 `expected` 所指定的值不相等，`expected` 中的内容就是原子对象的旧值。
+
+该函数通常会读取原子对象封装的值，如果比较为 `true`(即原子对象的值等于 `expected`)，则替换原子对象的旧值，但整个操作是原子的，在某个线程读取和修改该原子对象时，另外的线程不能对读取和修改该原子对象。
+
+注意，该函数直接比较原子对象所封装的值与参数 `expected` 的物理内容，所以某些情况下，对象的比较操作在使用 `operator==()` 判断时相等，但 `atomic_compare_exchange_weak` 判断时却可能失败，因为对象底层的物理内容中可能存在位对齐或其他逻辑表示相同但是物理表示不同的值(比如 `true` 和 2 或 3，它们在逻辑上都表示"真"，但在物理上两者的表示并不相同)。
+
+与 `atomic_compare_exchange_weak` 不同, `strong` 版本的 `compare-and-exchange` 操作不允许(*`spuriously`* 地)返回 `false`，即原子对象所封装的值与参数 `expected` 的物理内容相同，比较操作一定会为 `true`。不过在某些平台下，如果算法本身需要循环操作来做检查， `atomic_compare_exchange_weak` 的性能会更好。
+
+因此对于某些不需要采用循环操作的算法而言, 通常采用 `atomic_compare_exchange_strong` 更好。
+
+### `atomic_compare_exchange_strong_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+bool atomic_compare_exchange_strong_explicit (volatile atomic&lt;T&gt;* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;
+template &lt;class T&gt;
+bool atomic_compare_exchange_strong_explicit (atomic&lt;T&gt;* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>bool atomic_compare_exchange_strong_explicit (volatile A* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;
+bool atomic_compare_exchange_strong_explicit (A* obj,
+        T* expected, T val, memory_order success, memory_order failure) noexcept;</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+比较并交换被封装的值(`strong`)与参数 `expected` 所指定的值是否相等，如果：
+
+1. 相等，则用 `val` 替换原子对象的旧值。
+2. 不相等，则用原子对象的旧值替换 `expected` ，因此调用该函数之后，如果被该原子对象封装的值与参数 `expected` 所指定的值不相等，`expected` 中的内容就是原子对象的旧值。
+
+该函数通常会读取原子对象封装的值，如果比较为 `true`(即原子对象的值等于 `expected`)，则替换原子对象的旧值，但整个操作是原子的，在某个线程读取和修改该原子对象时，另外的线程不能对读取和修改该原子对象。
+
+内存序（Memory Order）的选择取决于比较操作结果，如果比较结果为 true(即原子对象的值等于 expected)，则选择参数 success 指定的内存序，否则选择参数 failure 所指定的内存序。
+
+注意，该函数直接比较原子对象所封装的值与参数 `expected` 的物理内容，所以某些情况下，对象的比较操作在使用 `operator==()` 判断时相等，但 `atomic_compare_exchange_weak` 判断时却可能失败，因为对象底层的物理内容中可能存在位对齐或其他逻辑表示相同但是物理表示不同的值(比如 `true` 和 2 或 3，它们在逻辑上都表示"真"，但在物理上两者的表示并不相同)。
+
+与 `atomic_compare_exchange_weak` 不同, `strong` 版本的 `compare-and-exchange` 操作不允许(*`spuriously`* 地)返回 `false`，即原子对象所封装的值与参数 `expected` 的物理内容相同，比较操作一定会为 `true`。不过在某些平台下，如果算法本身需要循环操作来做检查， `atomic_compare_exchange_weak` 的性能会更好。
+
+因此对于某些不需要采用循环操作的算法而言, 通常采用 `atomic_compare_exchange_strong` 更好。另外，该函数的内存序由 `sync` 参数指定，可选条件如下：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_fetch_add` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt; T atomic_fetch_add (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; T atomic_fetch_add (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>template (pointer) (2)</th>
+<td>
+<pre>template &lt;class U&gt; U* atomic_fetch_add (volatile atomic&lt;U*&gt;* obj, ptrdiff_t val) noexcept;
+template &lt;class U&gt; U* atomic_fetch_add (atomic&lt;U*&gt;* obj, ptrdiff_t val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="odd"><th>overloads (3)</th>
+<td>
+<pre>T atomic_fetch_add (volatile A* obj, M val) noexcept;
+T atomic_fetch_add (A* obj, M val) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值加 `val`，并返回原子对象的旧值（适用于整形和指针类型的 `std::atomic` 特化版本），整个过程是原子的。该函数默认内存序为 `memory_order_seq_cst`。
+该函数等价于 `std::atomic` 对象的 `atomic::fetch_add` 和 `atomic::operator+=` 成员函数。
+
+### `atomic_fetch_add_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+T atomic_fetch_add_explicit (volatile atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+template &lt;class T&gt;
+T atomic_fetch_add_explicit (atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>template (pointer) (2)</th>
+<td>
+<pre>template &lt;class U&gt;
+U* atomic_fetch_add_explicit (volatile atomic&lt;U*&gt;* obj,
+                              ptrdiff_t val, memory_order sync) noexcept;
+template &lt;class U&gt;
+U* atomic_fetch_add_explicit (atomic&lt;U*&gt;* obj,
+                              ptrdiff_t val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="odd"><th>overloads (3)</th>
+<td>
+<pre>T atomic_fetch_add_explicit (volatile A* obj, M val, memory_order sync) noexcept;
+T atomic_fetch_add_explicit (A* obj, M val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值加 `val`，并返回原子对象的旧值（适用于整形和指针类型的 `std::atomic` 特化版本），整个过程是原子的。
+该函数等价于 `std::atomic` 对象的 `atomic::fetch_add` 成员函数。`sync` 参数指定内存序：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_fetch_sub` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt; T atomic_fetch_sub (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; T atomic_fetch_sub (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>template (pointer) (2)</th>
+<td>
+<pre>template &lt;class U&gt; U* atomic_fetch_sub (volatile atomic&lt;U*&gt;* obj, ptrdiff_t val) noexcept;
+template &lt;class U&gt; U* atomic_fetch_sub (atomic&lt;U*&gt;* obj, ptrdiff_t val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="odd"><th>overloads (3)</th>
+<td>
+<pre>T atomic_fetch_sub (volatile A* obj, M val) noexcept;
+T atomic_fetch_sub (A* obj, M val) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值减 `val`，并返回原子对象的旧值（适用于整形和指针类型的 `std::atomic` 特化版本），整个过程是原子的。
+
+### `atomic_fetch_sub_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+T atomic_fetch_sub_explicit (volatile atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+template &lt;class T&gt;
+T atomic_fetch_sub_explicit (atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>template (pointer) (2)</th>
+<td>
+<pre>template &lt;class U&gt;
+U* atomic_fetch_sub_explicit (volatile atomic&lt;U*&gt;* obj,
+                              ptrdiff_t val, memory_order sync) noexcept;
+template &lt;class U&gt;
+U* atomic_fetch_sub_explicit (atomic&lt;U*&gt;* obj,
+                              ptrdiff_t val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="odd"><th>overloads (3)</th>
+<td>
+<pre>T atomic_fetch_sub_explicit (volatile A* obj, M val, memory_order sync) noexcept;
+T atomic_fetch_sub_explicit (A* obj, M val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值减 `val`，并返回原子对象的旧值（适用于整形和指针类型的 `std::atomic` 特化版本），整个过程是原子的。
+
+该函数等价于 `std::atomic` 对象的 `atomic::fetch_sub` 成员函数。`sync` 参数指定内存序：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_fetch_and` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>emplate (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt; T atomic_fetch_and (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; T atomic_fetch_and (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_fetch_and (volatile A* obj, T val) noexcept;
+T atomic_fetch_and (A* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值按位与 `val`，并返回原子对象的旧值（只适用于整型的 `std::atomic` 特化版本），整个过程是原子的。
+
+### `atomic_fetch_and_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+T atomic_fetch_and_explicit (volatile atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+template &lt;class T&gt;
+T atomic_fetch_and_explicit (atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_fetch_and_explicit (volatile A* obj, T val, memory_order sync) noexcept;
+T atomic_fetch_and_explicit (A* obj, T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值按位与 `val`，并返回原子对象的旧值（只适用于整型的 `std::atomic` 特化版本），整个过程是原子的。
+
+该函数等价于 `std::atomic` 对象的 `atomic::fetch_and` 成员函数。`sync` 参数指定内存序：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_fetch_or` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt; T atomic_fetch_or (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; T atomic_fetch_or (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_fetch_or (volatile A* obj, T val) noexcept;
+T atomic_fetch_or (A* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值按位或 `val`，并返回原子对象的旧值（只适用于整型的 `std::atomic` 特化版本），整个过程是原子的。
+
+### `atomic_fetch_or_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+T atomic_fetch_or_explicit (volatile atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+template &lt;class T&gt;
+T atomic_fetch_or_explicit (atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_fetch_or_explicit (volatile A* obj, T val, memory_order sync) noexcept;
+T atomic_fetch_or_explicit (A* obj, T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+A将原子对象的封装值按位或 `val`，并返回原子对象的旧值（只适用于整型的 `std::atomic` 特化版本），整个过程是原子的。
+
+该函数等价于 `std::atomic` 对象的 `atomic::fetch_or` 成员函数。`sync` 参数指定内存序：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+### `atomic_fetch_xor` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt; T atomic_fetch_xor (volatile atomic&lt;T&gt;* obj, T val) noexcept;
+template &lt;class T&gt; T atomic_fetch_xor (atomic&lt;T&gt;* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_fetch_xor (volatile A* obj, T val) noexcept;
+T atomic_fetch_xor (A* obj, T val) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值按位异或 `val`，并返回原子对象的旧值（只适用于整型的 `std::atomic` 特化版本），整个过程是原子的。
+
+### `atomic_fetch_xor_explicit` ###
+
+<table>
+<tbody>
+<tr class="odd"><th>template (integral) (1)</th>
+<td>
+<pre>template &lt;class T&gt;
+T atomic_fetch_xor_explicit (volatile atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+template &lt;class T&gt;
+T atomic_fetch_xor_explicit (atomic&lt;T&gt;* obj,
+                             T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+<tr class="even"><th>overloads (2)</th>
+<td>
+<pre>T atomic_fetch_xor_explicit (volatile A* obj, T val, memory_order sync) noexcept;
+T atomic_fetch_xor_explicit (A* obj, T val, memory_order sync) noexcept;
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+将原子对象的封装值按位异或 `val`，并返回原子对象的旧值（只适用于整型的 `std::atomic` 特化版本），整个过程是原子的。
+
+该函数等价于 `std::atomic` 对象的 `atomic::fetch_xor` 成员函数。`sync` 参数指定内存序：
+
+<table class="boxed">
+<tr><th style="text-align: center;">Memory Order 值</th><th style="text-align: center;">Memory Order 类型</th></tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_relaxed</samp></td>
+<td style="text-align: center;">Relaxed</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_consume</samp></td>
+<td style="text-align: center;">Consume</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acquire</samp></td>
+<td style="text-align: center;">Acquire</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_release</samp></td>
+<td style="text-align: center;">Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_acq_rel</samp></td>
+<td style="text-align: center;">Acquire/Release</td>
+</tr>
+<tr>
+<td style="text-align: center;"><samp>memory_order_seq_cst</samp></td>
+<td style="text-align: center;">Sequentially consistent</td>
+</tr>
+</table>
+
+## 与原子对象初始化相关的宏 ##
+
+此外，还有两个宏值得关注，他们分别是：
+
+    ATOMIC_VAR_INIT(val)
+
+初始化 `std::atomic` 对象。
+
+    ATOMIC_FLAG_INIT
+
+初始化 `std::atomic_flag` 对象。
