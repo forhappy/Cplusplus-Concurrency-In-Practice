@@ -48,6 +48,8 @@
 
 ### [ `std::atomic` 入门介绍（续）](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/Introduction-to-Atomic-atomic2.md "std::atomic 入门介绍（续）") ###
 
+### [C++11 中 C 风格原子操作介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/Introduction-to-Atomic-c-style-atomic.md "C 风格原子操作介绍") ###
+
 
 ##第八章 C++11 内存模型 ##
 
