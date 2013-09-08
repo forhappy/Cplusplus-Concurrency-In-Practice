@@ -11,17 +11,6 @@
 > 本书还处于创作早期(2013 年 8 月 31 日提交第一行内容)，还有很多内容需要修正和完善，如果你对此感兴趣，希望能加入到我们的队伍中(虽然目前还只有我一人孤身奋战)一起来完成 《C++ 并发编程指南》，传播知识，方便他人，提高自我吧。
 
 
-# 本书创作发起人 #
-
-> forhappy（haipingf AT gmail DOT com）
-
-微博: @傅海平ICT([www.weibo.com/1702076100](www.weibo.com/1702076100))
-
-
-# 贡献者名单 #
-
-> 欢迎申请加入该名单 ;-)
-
 # 本书目录(只列出一级目录) #
 
 ### 第一章 并发编程基础 ###
@@ -38,6 +27,17 @@
 ### 附录 C++11 新标准概览 ###
 
 本书的详细目录和完成情况请移步[《C++ 并发编程指南》目录](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/Table-of-contents.md)
+
+# 本书创作发起人 #
+
+> forhappy（haipingf AT gmail DOT com）
+
+微博: @傅海平ICT([www.weibo.com/1702076100](www.weibo.com/1702076100))
+
+
+# 贡献者名单 #
+
+> 欢迎申请加入该名单 ;-)
 
 
 # License #
