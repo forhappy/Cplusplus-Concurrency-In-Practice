@@ -1,7 +1,8 @@
 ﻿# C++ 多线程编程 #资料汇
 
-
+- C++11 - the new ISO C++ standard: [http://www.stroustrup.com/C++11FAQ.html](http://www.stroustrup.com/C++11FAQ.html)
 - [http://en.cppreference.com/w/cpp/thread/thread](http://en.cppreference.com/w/cpp/thread/thread)
+- [http://www.cplusplus.com/reference/thread/](http://www.cplusplus.com/reference/thread/)
 - [http://gcc.gnu.org/projects/cxx0x.html](http://gcc.gnu.org/projects/cxx0x.html)
 - C++0x/C++11 Support in GCC: [http://gcc.gnu.org/projects/cxx0x.html](http://gcc.gnu.org/projects/cxx0x.html)
 - Chapter 30. Thread 4.1.0: [http://www.boost.org/doc/libs/1_54_0/doc/html/thread.html](http://www.boost.org/doc/libs/1_54_0/doc/html/thread.html)
