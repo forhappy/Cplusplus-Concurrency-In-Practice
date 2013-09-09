@@ -27,7 +27,7 @@
 `<thread>` 头文件主要声明了 `std::thread` 类，另外在 `std::this_thread` 命名空间中声明了 `get_id`，`yield`，`sleep_until` 以及 `sleep_for` 等辅助函数，本章稍微会详细介绍 `std::thread` 类及相关函数。
 
 
-## `std::thread` 类摘要 ##
+### `std::thread` 类摘要 ###
 
 `std::thread` 代表了一个线程对象，C++11 标准声明如下：
 
@@ -85,9 +85,11 @@
         template <> struct hash<thread::id>;
     }
 
-## `std::thread` 构造和赋值 ##
+### `std::thread` 详解 ###
 
-### `std::thread` 构造函数 ###
+### `std::thread` 构造和赋值 ###
+
+#### `std::thread` 构造函数 ####
 
 <table>
 <tbody>
@@ -96,9 +98,8 @@
 </tr>
 <tr class="even"><th>初始化构造函数 (2)</th>
 <td>
-<pre>template &lt;class Fn, class... Args&gt;
+template &lt;class Fn, class... Args&gt;<br/>
 explicit thread(Fn&amp;&amp; fn, Args&amp;&amp;... args);
-</pre>
 </td>
 </tr>
 <tr class="odd"><th>拷贝构造函数 [deleted] (3)</th>
@@ -159,13 +160,13 @@ std::thread 各种构造函数例子如下（[参考](http://en.cppreference.com
         std::cout << "Final value of n is " << n << '\n';
     }
 
-### `std::thread` 赋值操作 ###
+#### `std::thread` 赋值操作 ####
 
 <table style="width: 475px; height: 87px;">
 <tbody>
 <tr class="odd"><th>Move 赋值操作 (1)</th>
 <td>
->thread&amp; operator=(thread&amp;&amp; rhs) noexcept;
+thread&amp; operator=(thread&amp;&amp; rhs) noexcept;
 </td>
 </tr>
 <tr class="even"><th>拷贝赋值操作 [deleted] (2)</th>
@@ -211,12 +212,12 @@ thread&amp; operator=(const thread&amp;) = delete;
         return EXIT_SUCCESS;
     }
 
-## 其他成员函数 ##
+### 其他成员函数 ###
 
 - `get_id`: 获取线程 ID。
 - `joinable`: 检查线程是否可被 join。
 - `join`: Join 线程。
-- `detach`: Detach 线程
+- `detach`: Detach 线程。
 - `swap`: Swap 线程 。
 - `native_handle`: 返回 native handle。
 - `hardware_concurrency` [static]: 检测硬件并发特性。
