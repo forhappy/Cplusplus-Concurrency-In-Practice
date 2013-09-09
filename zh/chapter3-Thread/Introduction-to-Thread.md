@@ -85,7 +85,7 @@
         template <> struct hash<thread::id>;
     }
 
-### `std::thread` 详解 ###
+## `std::thread` 详解 ##
 
 ### `std::thread` 构造和赋值 ###
 
