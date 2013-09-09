@@ -32,7 +32,7 @@
 
 > forhappy（haipingf AT gmail DOT com）
 
-微博: @傅海平ICT([www.weibo.com/1702076100](www.weibo.com/1702076100))
+微博: @傅海平ICT([www.weibo.com/1702076100](http://www.weibo.com/1702076100))
 
 
 # 贡献者名单 #
