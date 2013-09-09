@@ -14,6 +14,7 @@
 ## 1.2 并发与并行的区别和联系 ##
 ## 1.3 为什么需要并发编程 ##
 ## 1.4 并发编程应用场景和经典示例 ##
-## 1.5 C++ 并发编程初探 ##
+## 1.5 [C++ 并发编程初探](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/Cplusplus-Concurrency-Introduction.md) ##
+## 1.6 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/web-resources.md) ##
 
 
