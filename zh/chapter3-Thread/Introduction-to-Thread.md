@@ -221,3 +221,10 @@ thread&amp; operator=(const thread&amp;) = delete;
 - `swap`: Swap 线程 。
 - `native_handle`: 返回 native handle。
 - `hardware_concurrency` [static]: 检测硬件并发特性。
+
+## `std::this_thread` 命名空间中相关辅助函数介绍 ##
+
+- get_id: 获取线程 ID。
+- yield: 当前线程放弃执行，操作系统调度另一线程继续执行。
+- sleep_until: 线程休眠至某个指定的时刻(time point)，该线程才被重新唤醒。
+- sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒。
