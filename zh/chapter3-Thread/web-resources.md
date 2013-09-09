@@ -1,4 +1,4 @@
-﻿# C++ 多线程编程 #资料汇
+﻿# C++ 多线程编程资料汇 #
 
 - C++11 - the new ISO C++ standard: [http://www.stroustrup.com/C++11FAQ.html](http://www.stroustrup.com/C++11FAQ.html)
 - [http://en.cppreference.com/w/cpp/thread/thread](http://en.cppreference.com/w/cpp/thread/thread)
