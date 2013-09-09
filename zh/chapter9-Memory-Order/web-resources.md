@@ -26,3 +26,25 @@
 
 - Thin Lock Implementation: [http://bartoszmilewski.com/2008/08/16/thin-lock-implementation/](http://bartoszmilewski.com/2008/08/16/thin-lock-implementation/)
 
+
+## [Preshing on programming](http://preshing.com/) ##
+
+- Memory Reordering Caught in the Act: [http://preshing.com/20120515/memory-reordering-caught-in-the-act](http://preshing.com/20120515/memory-reordering-caught-in-the-act)
+
+- An Introduction to Lock-Free Programming: [http://preshing.com/20120612/an-introduction-to-lock-free-programming](http://preshing.com/20120612/an-introduction-to-lock-free-programming)
+
+- Memory Ordering at Compile Time: [http://preshing.com/20120625/memory-ordering-at-compile-time](http://preshing.com/20120625/memory-ordering-at-compile-time)
+
+- Memory Barriers Are Like Source Control Operations: [http://preshing.com/20120710/memory-barriers-are-like-source-control-operations](http://preshing.com/20120710/memory-barriers-are-like-source-control-operations)
+
+- Acquire and Release Semantics: [http://preshing.com/20120913/acquire-and-release-semantics](http://preshing.com/20120913/acquire-and-release-semantics)
+
+- Weak vs. Strong Memory Models: [http://preshing.com/20120930/weak-vs-strong-memory-models](http://preshing.com/20120930/weak-vs-strong-memory-models)
+
+- This Is Why They Call It a Weakly-Ordered CPU: [http://preshing.com/20121019/this-is-why-they-call-it-a-weakly-ordered-cpu](http://preshing.com/20121019/this-is-why-they-call-it-a-weakly-ordered-cpu)
+
+- Atomic vs. Non-Atomic Operations: [http://preshing.com/20130618/atomic-vs-non-atomic-operations](http://preshing.com/20130618/atomic-vs-non-atomic-operations)
+
+- The Happens-Before Relation: [http://preshing.com/20130702/the-happens-before-relation](http://preshing.com/20130702/the-happens-before-relation)
+
+- The Synchronizes-With Relation: [http://preshing.com/20130823/the-synchronizes-with-relation](http://preshing.com/20130823/the-synchronizes-with-relation)
