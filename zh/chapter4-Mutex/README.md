@@ -29,6 +29,8 @@
 ### 4.3.1 `std::lock_guard` 类型介绍 ###
 ### 4.3.2 `std::unique_lock` 类型介绍 ###
 
-## 4.4 `std::mutex` 与 Pthread 对比 ##
+## 4.4 辅助函数介绍 ##
 
-## [4.5 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/web-resources.md) ##
+## 4.5 `std::mutex` 与 Pthread 对比 ##
+
+## [4.6 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/web-resources.md) ##
