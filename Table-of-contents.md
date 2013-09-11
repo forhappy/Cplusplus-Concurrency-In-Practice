@@ -38,7 +38,30 @@
 
 ##第四章 互斥量与锁 ##
 
-### [`std::mutex` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/Introduction-to-Mutex.md "std::mutex 入门介绍") ###
+### 4.1 `<mutex>` 头文件摘要 ###
+#### 4.1.1 `std::mutex` 类摘要 ####
+#### 4.1.2 `std::recursive_mutex` 类摘要 ####
+#### 4.1.3 `std::timed_mutex` 类摘要 ####
+#### 4.1.4 `std::recursive_timed_mutex` 类摘要 ####
+#### 4.1.4 `std::lock_guard` 类摘要 ####
+#### 4.1.4 `std::unique_lock` 类摘要 ####
+
+### 4.2 互斥量详解 ###
+#### 4.2.1 `std::mutex` 类型介绍 ####
+##### 4.2.1.1 `std::mutex` 构造函数 #####
+##### 4.2.1.2 `std::mutex` 赋值操作 #####
+##### 4.2.1.3 其他成员函数 #####
+#### 4.2.2 `std::recursive_mutex` 类型介绍 ####
+#### 4.2.3 `std::timed_mutex` 类型介绍 ####
+#### 4.2.4 `std::recursive_timed_mutex` 类型介绍 ####
+
+### 4.3 锁类型详解 ###
+#### 4.3.1 `std::lock_guard` 类型介绍 ####
+#### 4.3.2 `std::unique_lock` 类型介绍 ####
+
+### 4.4 `std::mutex` 与 Pthread 对比 ###
+
+### [4.5 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/web-resources.md) ###
 
 
 ##第五章 条件变量与线程同步 ##
