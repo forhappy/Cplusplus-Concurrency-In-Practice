@@ -43,8 +43,8 @@
 #### 4.1.2 `std::recursive_mutex` 类摘要 ####
 #### 4.1.3 `std::timed_mutex` 类摘要 ####
 #### 4.1.4 `std::recursive_timed_mutex` 类摘要 ####
-#### 4.1.4 `std::lock_guard` 类摘要 ####
-#### 4.1.4 `std::unique_lock` 类摘要 ####
+#### 4.1.5 `std::lock_guard` 类摘要 ####
+#### 4.1.6 `std::unique_lock` 类摘要 ####
 
 ### 4.2 互斥量详解 ###
 #### 4.2.1 `std::mutex` 类型介绍 ####
