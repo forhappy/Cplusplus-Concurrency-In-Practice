@@ -13,41 +13,41 @@
 
 ## 第二章 几种常见的多线程库介绍 ##
 
-### Pthread 多线程编程指南 ###
+### 2.1 Pthread 多线程编程指南 ###
 
-### Windows 多线程编程指南 ###
+### 2.2 Windows 多线程编程指南 ###
 
 
 ## 第三章 线程详解 ##
 
 
-### [3.1 `<thread>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#thread-%E5%A4%B4%E6%96%87%E4%BB%B6%E6%91%98%E8%A6%81) ###
-#### [3.1.1 `std::thread` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E7%B1%BB%E6%91%98%E8%A6%81) ####
+### 3.1 [`<thread>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#thread-%E5%A4%B4%E6%96%87%E4%BB%B6%E6%91%98%E8%A6%81) ###
+#### 3.1.1 [`std::thread` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E7%B1%BB%E6%91%98%E8%A6%81) ####
 
-### [3.2 `std::thread` 详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E8%AF%A6%E8%A7%A3) ###
-#### [3.2.1 `std::thread` 构造和赋值](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E6%9E%84%E9%80%A0%E5%92%8C%E8%B5%8B%E5%80%BC) ####
-##### [3.2.1.1 `std::thread` 构造函数](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0) #####
-##### [3.2.2.2 `std::thread` 赋值操作](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C) #####
-#### [3.2.2 其他成员函数](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#%E5%85%B6%E4%BB%96%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0) ####
+### 3.2 [`std::thread` 详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E8%AF%A6%E8%A7%A3) ###
+#### 3.2.1 [`std::thread` 构造和赋值](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E6%9E%84%E9%80%A0%E5%92%8C%E8%B5%8B%E5%80%BC) ####
+##### 3.2.1.1 [`std::thread` 构造函数](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0) #####
+##### 3.2.2.2 [`std::thread` 赋值操作](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthread-%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C) #####
+#### 3.2.2 [其他成员函数](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#%E5%85%B6%E4%BB%96%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0) ####
 
-### [3.3 `std::this_thread` 命名空间中相关辅助函数介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthis_thread-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%AD%E7%9B%B8%E5%85%B3%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D) ###
+### 3.3 [`std::this_thread` 命名空间中相关辅助函数介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthis_thread-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%AD%E7%9B%B8%E5%85%B3%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D) ###
 
 ### 3.4 `std::thread` 与 Pthread 线程对比 ###
 
-### [3.5 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/web-resources.md "资料汇") ###
+### 3.5 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/web-resources.md "资料汇") ###
 
 
 ##第四章 互斥量与锁 ##
 
-### [4.1 `<mutex>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md) ###
-#### [4.1.1 `std::mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#411-stdmutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
-#### [4.1.2 `std::recursive_mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#412-stdrecursive_mutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
-#### [4.1.3 `std::timed_mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#413-stdtimed_mutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
-#### [4.1.4 `std::recursive_timed_mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#414-stdrecursive_timed_mutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
-#### [4.1.5 `std::lock_guard` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#415-stdlock_guard-%E7%B1%BB%E6%91%98%E8%A6%81) ####
-#### [4.1.6 `std::unique_lock` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#416-stdunique_lock-%E7%B1%BB%E6%91%98%E8%A6%81) ####
+### 4.1 [`<mutex>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md) ###
+#### 4.1.1 [`std::mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#411-stdmutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
+#### 4.1.2 [`std::recursive_mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#412-stdrecursive_mutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
+#### 4.1.3 [`std::timed_mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#413-stdtimed_mutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
+#### 4.1.4 [`std::recursive_timed_mutex` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#414-stdrecursive_timed_mutex-%E7%B1%BB%E6%91%98%E8%A6%81) ####
+#### 4.1.5 [`std::lock_guard` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#415-stdlock_guard-%E7%B1%BB%E6%91%98%E8%A6%81) ####
+#### 4.1.6 [`std::unique_lock` 类摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md#416-stdunique_lock-%E7%B1%BB%E6%91%98%E8%A6%81) ####
 
-### [4.2 互斥量详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.2%20Mutex-tutorial.md) ###
+### 4.2 [互斥量详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.2%20Mutex-tutorial.md) ###
 #### 4.2.1 `std::mutex` 类型介绍 ####
 ##### 4.2.1.1 `std::mutex` 构造函数 #####
 ##### 4.2.1.2 `std::mutex` 赋值操作 #####
@@ -56,7 +56,7 @@
 #### 4.2.3 `std::timed_mutex` 类型介绍 ####
 #### 4.2.4 `std::recursive_timed_mutex` 类型介绍 ####
 
-### [4.3 锁类型详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.3%20Lock-tutorial.md) ###
+### 4.3 [锁类型详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.3%20Lock-tutorial.md) ###
 #### 4.3.1 `std::lock_guard` 类型介绍 ####
 #### 4.3.2 `std::unique_lock` 类型介绍 ####
 
@@ -64,22 +64,22 @@
 
 ### 4.5 `std::mutex` 与 Pthread 互斥量对比 ###
 
-### [4.6 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/web-resources.md) ###
+### 4.6 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/web-resources.md) ###
 
 
 ##第五章 条件变量与线程同步 ##
 
 ### 5.1 [`<condition_variable>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.1%20Condition-variable%20header%20synopsis.md) ###
 
-### [5.2 条件变量详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.2%20Condition-variable-tutorial.md) ###
+### 5.2 [条件变量详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.2%20Condition-variable-tutorial.md) ###
 
-### [5.3 辅助函数介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.3%20Auxiliary-function.md) ###
+### 5.3 [辅助函数介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.3%20Auxiliary-function.md) ###
 
 ### 5.4 利用条件变量（std::condition_variable）进行线程同步 ###
 
 ### 5.5 `std::condition_variable` 与 Pthread 条件变量对比 ###
 
-### [5.6 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/web-resources.md) ###
+### 5.6 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/web-resources.md) ###
 
 ##第六章 异步任务详解 ##
 
