@@ -14,7 +14,7 @@
 
 ## 6.3 [异步任务提供者(Provider) 介绍（续）](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/6.3%20Providers-tutorial-2.md) ##
 
-## 6.4 [Future 类型详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/6.4%20Future-tutorial.md) ##
+## 6.4 [异步任务 Future 类型详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/6.4%20Future-tutorial.md) ##
 
 ## 6.5 [与异步任务相关的类型介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/6.5%20Auxiliary-types.md) ##
 

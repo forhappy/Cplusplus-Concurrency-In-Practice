@@ -10,16 +10,16 @@
 
 ## 7.1 [`<atomic>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/7.1%20Atomic-header-synopsis.md) ##
 
-## 7.2 `std::atomic_flag` 详解 ##
+## 7.2 [`std::atomic_flag` 详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/7.2%20Atomic-flag-tutorial.md) ##
 
-## 7.3 基本 `std::atomic` 类型详解 ##
+## 7.3 [基本 `std::atomic` 类型详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/7.3%20Atomic-tutorial.md) ##
 
-## 7.4 特化的 `std::atomic` 类型详解 ##
+## 7.4 [特化的 `std::atomic` 类型详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/7.4%20Atomic-tutorial2.md) ##
 
-## 7.5 C 风格的原子操作 ##
+## 7.5 [C 风格的原子操作](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/7.5%20C-style-atomic.md) ##
 
 ## 7.6 C++11 内存模型初探 ##
 
 ## 7.7 如何利用原子类型设计并发数据结构 ##
 
-## 7.8 资料汇 ##
+## 7.8 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/web-resources.md) ##
