@@ -8,7 +8,7 @@
 
 # 第七章 原子类型详解 #
 
-## 7.1 `<atomic>` 头文件摘要 ##
+## 7.1 [`<atomic>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/7.1%20Atomic-header-synopsis.md) ##
 
 ## 7.2 `std::atomic_flag` 详解 ##
 
