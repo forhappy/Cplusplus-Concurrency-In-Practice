@@ -16,6 +16,6 @@
 
 ## 5.4 利用条件变量（std::condition_variable）进行线程同步 ##
 
-## 5.5 `std::condition_variable` 与 `pthread_cond_t` 对比 ##
+## 5.5 `std::condition_variable` 与 Pthread 条件变量对比 ##
 
 ## [5.6 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/web-resources.md) ##

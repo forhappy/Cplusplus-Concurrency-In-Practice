@@ -32,7 +32,7 @@
 
 ### [3.3 `std::this_thread` 命名空间中相关辅助函数介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/Introduction-to-Thread.md#stdthis_thread-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E4%B8%AD%E7%9B%B8%E5%85%B3%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D) ###
 
-### 3.4 `std::thread` 与 Pthread 对比 ###
+### 3.4 `std::thread` 与 Pthread 线程对比 ###
 
 ### [3.5 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/web-resources.md "资料汇") ###
 
@@ -62,14 +62,24 @@
 
 ### 4.4 辅助函数介绍 ###
 
-### 4.5 `std::mutex` 与 Pthread 对比 ###
+### 4.5 `std::mutex` 与 Pthread 互斥量对比 ###
 
 ### [4.6 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/web-resources.md) ###
 
 
 ##第五章 条件变量与线程同步 ##
 
-### [`std::condition_variable` 入门介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/Introduction-to-Condition-Variable.md "std::condition_variable 入门介绍") ###
+### 5.1 [`<condition_variable>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.1%20Condition-variable%20header%20synopsis.md) ###
+
+### [5.2 条件变量详解](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.2%20Condition-variable-tutorial.md) ###
+
+### [5.3 辅助函数介绍](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.3%20Auxiliary-function.md) ###
+
+### 5.4 利用条件变量（std::condition_variable）进行线程同步 ###
+
+### 5.5 `std::condition_variable` 与 Pthread 条件变量对比 ###
+
+### [5.6 资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/web-resources.md) ###
 
 ##第六章 异步任务详解 ##
 
