@@ -105,7 +105,7 @@
 
 ##第八章 C++11 内存模型 ##
 
-### 8.1 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter9-Memory-Order/web-resources.md "C++11 内存模型资料汇") ###
+### 8.1 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter8-Memory-Order/web-resources.md "C++11 内存模型资料汇") ###
 
 
 ##第九章 高级线程管理 ##
@@ -116,7 +116,7 @@
 
 ##第十一章 并发编程应用实例 ##
 
-### 11.1 [利用 C++11 并发设施解决生产者消费者问题](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter10-application/Producer-Consum.md "如何利用 C++11 并发设施解决生产者消费者问题") ###
+### 11.1 [利用 C++11 并发设施解决生产者消费者问题](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter11-Application/11.1%20Producer-Consumer-solution.md "如何利用 C++11 并发设施解决生产者消费者问题") ###
 
 
 ##附录 C++11 新标准概览 ##
