@@ -129,7 +129,7 @@
 2. 泛化的常量表达式 constexpr
 3. 对 POD 类型定义的修正。
 
-### 2. 核心语言的构建时性能强化 ###
+### 2. [核心语言的构建时性能强化](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/appendix%20C%2B%2B11%20standards/C%2B%2B11%20Core%20language%20build%20time%20performance%20enhancements.md) ###
 
 本小节主要包括：
 
