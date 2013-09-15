@@ -13,4 +13,4 @@
 ## 8.3 内存序（Memory Order）与同步操作
 ## 8.4 原子类型编程实例 ##
 ## 8.5 Lock-free 编程初探 ##
-## [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter8-Memory-Order/web-resources.md) ##
+## [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter8-Memory-Model/web-resources.md) ##

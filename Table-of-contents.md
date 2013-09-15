@@ -105,7 +105,12 @@
 
 ##第八章 C++11 内存模型 ##
 
-### 8.1 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter8-Memory-Order/web-resources.md "C++11 内存模型资料汇") ###
+### 8.1 C++ 内存模型概述 ###
+### 8.2 X86 CPU 处理器架构与常见的存储一致性模型简介 ###
+### 8.3 内存序（Memory Order）与同步操作 ###
+### 8.4 原子类型编程实例 ###
+### 8.5 Lock-free 编程初探 ###
+### [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter8-Memory-Model/web-resources.md) ###
 
 
 ##第九章 高级线程管理 ##
