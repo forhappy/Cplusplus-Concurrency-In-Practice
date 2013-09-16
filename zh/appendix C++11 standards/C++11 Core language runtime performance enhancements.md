@@ -181,10 +181,10 @@ constexpr 可以修饰变量，函数，和类的构造函数。
 - 该函数每个参数必须是字面类型常量。
 - 函数体只能包含：
     1. null 语句。
-    2. [[../static_assert|static_assert]] 声明
-    3. typedef 声明或 不定义类或枚举类型的 alias(模板别名) 声明
-    4. using 声明
-    5. using 语句。
+    2. [[../static_assert|static_assert]] 语句。
+    3. typedef 声明或 模板别名声明（但该模板别名声明不定义类类型与枚举类型）。
+    4. using 声明。
+    5. using 指导语句。
     6. 只能存在唯一的 return 语句，并且 return 语句只能包含字面常量，constexpr 变量或 constexpr 函数。
 
 当 constexpr 修饰类构造函数时，应满足：
@@ -194,10 +194,10 @@ constexpr 可以修饰变量，函数，和类的构造函数。
 - 构造函数体必须满足以下条件：
 
     1. null 语句。
-    2. [[../static_assert|static_assert]] 声明
-    3. typedef 声明或 不定义类或枚举类型的 alias(模板别名) 声明
-    4. using 声明
-    5. using 语句。
+    2. [[../static_assert|static_assert]] 语句。
+    3. typedef 声明或 模板别名声明（但该模板别名声明不定义类类型与枚举类型）。
+    4. using 声明。
+    5. using 指导语句。
 
 - 构造函数中不能有 try-语句块。
 - 该类的每个基类和非静态成员变量必须是初始化。
