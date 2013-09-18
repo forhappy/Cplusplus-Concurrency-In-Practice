@@ -8,9 +8,16 @@ C++03 标准中变量和参数必须明确指明类型，但是随着模板类�
 
 如果某个对象在初始化时类型已经明确，那么可以 auto 关键字来声明该类型的对象，例如：
     
+    auto otherVariable = 5; // otherVariable 的类型为 int。
+    const auto *v = &x, u = 6; // 正确，v 的类型为 const int*, u 的类型为 const int。
+    static auto y = 0.0; // y 推导为 double 类型。
+    auto int r; // 错误: auto 在 C++11 中不是存储类型修饰符。
+
+auto 类型修饰符也可以出现在带有返回类型的函数（比如 std::vector<T>::begin() 等）的返回值前面，用于指定该函数返回值的类型，在返回值类型很复杂的情况下，auto 的类型推导可以减少大量冗赘代码。例如：
+
     // someStrangeCallableType 是某个类的成员函数类型，该类型也可以使用 std::function<> 来声明。
     auto someStrangeCallableType = std::bind(&SomeFunction, _2, _1, someObject);
-    auto otherVariable = 5; // otherVariable 的类型为 int。
+
 
 decltype 和 auto 一起使用会更为有用，因为 auto 参数的类型只有编译器知道。然而 decltype 对于那些大量运用运算符重载和特化的类型的代码的表示也非常有用。
 
