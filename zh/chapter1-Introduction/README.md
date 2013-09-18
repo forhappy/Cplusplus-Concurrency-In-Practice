@@ -10,7 +10,7 @@
 
 # 第一章 并发编程基础 #
 
-## 1.1 什么是并发编程 ##
+## 1.1 [什么是并发编程](https://github.com/daiyl0320/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/IntroductionToConcurrency.md) ##
 ## 1.2 并发与并行的区别和联系 ##
 ## 1.3 为什么需要并发编程 ##
 ## 1.4 并发编程应用场景和经典示例 ##
