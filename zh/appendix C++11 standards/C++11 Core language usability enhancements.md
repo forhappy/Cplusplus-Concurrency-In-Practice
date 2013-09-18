@@ -3,6 +3,32 @@
 ### 3.1 初始化列表(`std::initializer_list`) ###
 ### 3.2 统一的初始化方式 ###
 ### 3.3 类型推导(auto 和 decltype 关键字) ###
+
+C++03 标准中变量和参数必须明确指明类型，但是随着模板类型的出现以及模板元编程的技巧，对象的类型特别是函数的返回类型就不容易表示了。C++11 标准针对上面的情况引入了 auto 和 decltype 关键字(实际上，auto 关键字在旧的 C++ 标准中即存在，只不过在 C++11 标准中新增了类型自动推导语义)。
+
+如果某个对象在初始化时类型已经明确，那么可以 auto 关键字来声明该类型的对象，例如：
+    
+    // someStrangeCallableType 是某个类的成员函数类型，该类型也可以使用 std::function<> 来声明。
+    auto someStrangeCallableType = std::bind(&SomeFunction, _2, _1, someObject);
+    auto otherVariable = 5; // otherVariable 的类型为 int。
+
+decltype 和 auto 一起使用会更为有用，因为 auto 参数的类型只有编译器知道。然而 decltype 对于那些大量运用运算符重载和特化的类型的代码的表示也非常有用。
+
+auto 对于减少冗赘的代码也很有用。例如：
+
+    for (vector<int>::const_iterator itr = myvec.cbegin(); itr != myvec.cend(); ++itr)
+
+可以改写成更简洁的：
+
+    for (auto itr = myvec.cbegin(); itr != myvec.cend(); ++itr)
+
+Decltype 主要对值和表达式的类型推导，decltype 推导规则如下：
+
+1. 如果表达式 e 是一个变量，那么由 decltype 推导出来的类型就是这个变量的类型。
+2. 如果表达式 e 是一个函数，那么由 decltype 推导出来的类型就是这个函数返回值的类型。
+3. 如果不符合 1 和 2，如果 e 是左值，类型为 T，那么 decltype(e) 是 T&；如果是右值，则是 T。
+
+
 ### 3.4 基于范围的 for 循环 ###
 
 基于范围的for循环可以用非常简单的方式迭代集合中的每一项，C++11 标准中规定基于范围的 for 循环具有如下形式：
@@ -126,7 +152,7 @@ attribute 用来声明属性。
 
 另外，`capture` 指定了在可见域范围内 lambda 表达式的代码内可见得外部变量的列表，具体解释如下：
 
-- [a,&b]： a变量以值的方式被捕获，b以引用的方式被捕获。
+- [a,&b]： a变量以值的方式呗捕获，b以引用的方式被捕获。
 - [this]： 以值的方式捕获 this 指针。
 - [&]： 以引用的方式捕获所有的外部自动变量。
 - [=]： 以值的方式捕获所有的外部自动变量。
