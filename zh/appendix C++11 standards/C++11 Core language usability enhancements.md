@@ -137,6 +137,46 @@ C++11 中引入 `std::initializer_list` 给 C++ 语言可用性带来了极大�
     The list bound to auto has size() = 3
 
 ### 3.2 统一的初始化方式 ###
+
+C++11 将会提供一种统一的语法初始化任意的对象，它扩充了初始化列表语法，无论是 POD 还是非 POD 类型(有关 POD 类型的定义，请参考[本文](http://en.wikipedia.org/wiki/C%2B%2B11#Modification_to_the_definition_of_plain_old_data))都可以使用 `obj = { ... }` 的方式来进行初始化或赋值。对于非 POD 类型，若通过 `{ ... }` 形式进行对象的初始化和赋值，编译器将自动匹配并调用构造函数或 `"="` 赋值操作，参见 `3.1 初始化列表`。因此，构造函数 `T(x, y)` 现在也可以统一写成：`T{x, y}`、`T var{x, y}` 等。
+
+请看下例([参考](http://en.wikipedia.org/wiki/C%2B%2B11#Uniform_initialization))：
+
+    struct BasicStruct
+    {
+     int x;
+     float y;
+    };
+     
+    struct AltStruct
+    {
+      AltStruct(int _x, float _y) : x(_x), y(_y) {}
+     
+    private:
+      int x;
+      float y;
+    };
+     
+    BasicStruct var1{5, 3.2f};
+    AltStruct var2{2, 4.3f};
+
+另外，在需要返回一个 `T` 类型对象时，可以直接写：`return {x, y};`，统一的初始化语法能够免除指明特定类型的必要，例如([参考](http://en.wikipedia.org/wiki/C%2B%2B11#Uniform_initialization))：
+
+    struct IdString
+    {
+      std::string name;
+      int identifier;
+    };
+     
+    IdString var3{"SomeName", 4};
+
+该语法将会使用 `const char *` 参数初始化 `std::string`，在函数返回某个 IdString 对象时，可以直接编写如下代码：
+
+    IdString GetString()
+    {
+      return {"SomeName", 4}; // 不需指明特定的类型。
+    }
+
 ### 3.3 类型推导(auto 和 decltype 关键字) ###
 
 C++03 标准中变量和参数必须明确指明类型，但是随着模板类型的出现以及模板元编程的技巧，对象的类型特别是函数的返回类型就不容易表示了。C++11 标准针对上面的情况引入了 auto 和 decltype 关键字(实际上，auto 关键字在旧的 C++ 标准中即存在，只不过在 C++11 标准中新增了类型自动推导语义)。
