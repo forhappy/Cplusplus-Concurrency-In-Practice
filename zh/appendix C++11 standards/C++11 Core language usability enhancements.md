@@ -415,6 +415,39 @@ attribute 用来声明属性。
 
 ### 3.6 另一种可选的函数语法 ###
 
+> 本小节主要来自与维基百科[中文 C++11 介绍](http://zh.wikipedia.org/zh-cn/C%2B%2B11#.E5.8F.A6.E4.B8.80.E7.A8.AE.E7.9A.84.E5.87.BD.E5.BC.8F.E8.AA.9E.E6.B3.95)
+
+标准 C 函数声明语法对于 C 语言已经足够。 演化自 C 的 C++ 除了 C 的基础语法外，又扩充额外的语法。 然而，当 C++ 变得更为复杂时，它暴露出许多语法上的限制， 特别是针对函数模板的声明。 下面的示例，不是合法的 C++03：
+
+    template< typename LHS, typename RHS> 
+    Ret AddingFunc(const LHS &lhs, const RHS &rhs) { return lhs + rhs; } //Ret的类型必须是(lhs+rhs)的类型
+
+Ret 的类型由 LHS 与 RHS 相加之后的结果的类型来决定。 即使使用 C++11 新加入的 decltype 来声明 AddingFunc 的返回类型，依然不可行。
+
+    template< typename LHS, typename RHS> 
+    decltype(lhs+rhs) AddingFunc(const LHS &lhs, const RHS &rhs) { return lhs + rhs; } //不合法的 C++11
+
+不合法的原因在于 lhs 及 rhs 在定义前就出现了。 直到编译器解析到函数原型的后半部，lhs 与 rhs 才是有意义的。
+
+针对此问题，C++11 引进一种新的函数声明与定义的语法：
+
+    template< typename LHS, typename RHS> 
+    auto AddingFunc(const LHS &lhs, const RHS &rhs) -> decltype(lhs+rhs) { return lhs + rhs; }
+
+上述语法也能套用到一般的函数声明与定义：
+
+    struct SomeStruct
+    {
+        auto FuncName(int x, int y) -> int;
+    };
+ 
+    auto SomeStruct::FuncName(int x, int y) -> int
+    {
+          return x + y;
+    }
+
+关键字 `auto` 的使用与其在自动类型推导代表不同的意义。
+
 ### 3.7 对象创建优化 ###
 
 ### 3.8 显式虚函数重载 ###
