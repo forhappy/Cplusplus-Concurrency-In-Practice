@@ -211,7 +211,7 @@ attribute 用来声明属性。
 
 另外，`capture` 指定了在可见域范围内 lambda 表达式的代码内可见得外部变量的列表，具体解释如下：
 
-- [a,&b]： a变量以值的方式呗捕获，b以引用的方式被捕获。
+- [a,&b]： a变量以值的方式被捕获，b以引用的方式被捕获。
 - [this]： 以值的方式捕获 this 指针。
 - [&]： 以引用的方式捕获所有的外部自动变量。
 - [=]： 以值的方式捕获所有的外部自动变量。
@@ -246,9 +246,84 @@ attribute 用来声明属性。
     }
 
 ### 3.6 另一种可选的函数语法 ###
+
 ### 3.7 对象创建优化 ###
+
 ### 3.8 显式虚函数重载 ###
+
 ### 3.9 空指针常量(nullptr) ###
+
+C++03 标准中的 NULL 是一个与实现相关的空指针常量，即：
+
+    #define NULL /*implementation-defined*/
+
+某些编译器将其定义为整数 0，然而也有编译器将其定义为 `void` 指针类型: `(void*)0`。在某些情况下，这会造成二义性，例如：
+	
+    void func(int); // 参数为整型
+    void func(char *);// 参数为指针类型
+
+    func(NULL); //二义性，无法区别调用 func(int); 还是 func(char *);
+
+C++11 引入了一个新的常量空指针 nullptr, 其类型为 std::nullptr_t, nullptr_t 定义如下：
+
+    typedef decltype(nullptr) nullptr_t;
+
+nullptr 是一个纯右值(prvale, pure rvalue)，有关 C++11 左值与右值的解释，可参考 [此文](http://en.cppreference.com/w/cpp/language/value_category)。
+
+在 C++11 中，调用 `func(nullptr)` 将会直接调用 `func(char*)`，此时不存在二义性。
+
+nullptr 作为函数参数也通过模板类型进行转发，请参考下例：
+
+    #include <cstddef>
+    #include <iostream>
+     
+    template<class F, class A>
+    void Fwd(F f, A a)
+    {
+        f(a);
+    }
+     
+    void g(int* i)
+    {
+        std::cout << "Function g called\n";
+    }
+     
+    int main()
+    {
+        Fwd(g, nullptr);   // 正确
+        // Fwd(g, NULL);   // 错误: 没有定义 g(int)
+    }
+
+如果一个函数存在多种指针类型的重载，建议提供一个 std::nullptr_t 类型的重载版本。示例如下，[参考](http://en.cppreference.com/w/cpp/types/nullptr_t)：
+
+    #include <cstddef>
+    #include <iostream>
+     
+    void f(int* pi)
+    {
+       std::cout << "Pointer to integer overload\n";
+    }
+     
+    void f(double* pd)
+    {
+       std::cout << "Pointer to double overload\n";
+    }
+     
+    void f(std::nullptr_t nullp)
+    {
+       std::cout << "null pointer overload\n";
+    }
+     
+    int main()
+    {
+        int* pi; double* pd;
+     
+        f(pi);
+        f(pd);
+        f(nullptr);  // would be ambiguous without void f(nullptr_t)
+        // f(NULL);  // ambiguous overload: all three functions are candidates
+    }
+
 ### 3.10 强类型枚举 ###
 ### 3.11 右尖括号(>) ###
 
