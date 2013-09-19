@@ -2,10 +2,139 @@
 
 ### 3.1 初始化列表(`std::initializer_list`) ###
 
-C++11 标准扩大了初始化列表的概念，
+C++03 支持数组和简单对象(POD)的初始化值列表，例如：
+
+    int array[5] = {-3, -1, 0, 1, 3}; // 数组初始化列表
+
+    struct Person {
+        int id;
+        std::string name;
+    }；
+    Person p = {111, "Tom"}; // 简单对象的初始化列表
+
+但是上面的语法对复杂类型不可用，例如，在 C++03 标准中初始化一个 `std::vector<int> ` 对象可能需编写如下代码：
+
+    int a[] = {0, 1, 2, 3};
+    std::vector<int> vec(a, a + sizeof(a));
+
+如果 C++ 对复杂类型也能提供一种类似初始化列表的构造方法，那么上面的代码可以简化为：
+
+    std::vector<int> vec = {0, 1, 2, 3};
+
+事实上，C++11 标准扩大了初始化列表的概念，并提供了 `std::initializer_list` 模板类(在 `<initializer_list>` 头文件中定义)：
 
     template< class T >
     class initializer_list;
+
+当你使用类的初始化值列表时，C++11 会寻找参数类型为 `std::initializer_list` 的构造函数。
+
+C++11 中引入 `std::initializer_list` 给 C++ 语言可用性带来了极大的提升。现在，初始化列表不再仅限于数组。
+
+`<initializer_list>` 头文件摘要如下：
+
+    namespace std {
+        template<class E> class initializer_list {
+            public:
+                typedef E value_type;
+                typedef const E& reference;
+                typedef const E& const_reference;
+                typedef size_t size_type;
+                typedef const E* iterator;
+                typedef const E* const_iterator;
+                initializer_list() noexcept; // 默认构造函数
+                size_t size() const noexcept; // 初始化列表元素的个数.
+                const E* begin() const noexcept; // 返回指向初始化列表中第一个元素的指针.
+                const E* end() const noexcept; // 返回指向最末尾元素的后续位置的指针.
+        };
+    
+        template<class E> const E* begin(initializer_list<E> il) noexcept;
+        template<class E> const E* end(initializer_list<E> il) noexcept;
+    }
+
+`std::initializer_list` 默认构造函数将会创建一个空的初始化列表。另外，在以下两种情况下，编译器会自动构建一个非空的初始化列表对象：
+
+1. 在遇到初始化列表表达式(注: {1, 2, 3, 4} 即为一个简单的初始化列表表达式)时，编译器会自动构建一个非空的初始化列表对象，主要用于函数调用时初始化列表对象作为函数参数传入，或者在赋值表达式中设置某初始化列表对象的值。
+2. 在 auto 修饰符限定下的初始化表达式中(包括基于范围的 for 循环)，编译器也会自动构建一个非空的初始化列表对象。
+
+请看下例([参考](http://en.cppreference.com/w/cpp/utility/initializer_list/initializer_list))：
+
+    #include <iostream>
+    #include <initializer_list>
+     
+    int main() 
+    {
+        std::initializer_list<int> empty_list;
+        std::cout << "empty_list.size(): " << empty_list.size() << '\n';
+     
+        // create initializer lists using list-initialization
+        std::initializer_list<int> digits{1, 2, 3, 4, 5};
+        std::cout << "digits.size(): " << digits.size() << '\n';
+     
+        // special rule for auto means 'fractions' has the
+        // type std::initializer_list<double>
+        auto fractions = {3.14159, 2.71828};
+        std::cout << "fractions.size(): " << fractions.size() << '\n';
+    }
+
+下面例子介绍了初始化列表的基本用法([参考](http://en.cppreference.com/w/cpp/utility/initializer_list))：
+
+    #include <iostream>
+    #include <vector>
+    #include <initializer_list>
+     
+    template <class T>
+    struct S {
+        std::vector<T> v;
+        S(std::initializer_list<T> l) : v(l) {
+             std::cout << "constructed with a " << l.size() << "-element list\n";
+        }
+        void append(std::initializer_list<T> l) {
+            v.insert(v.end(), l.begin(), l.end());
+        }
+        std::pair<const T*, std::size_t> c_arr() const {
+            return {&v[0], v.size()};  // list-initialization in return statement
+                                       // this is NOT a use of std::initializer_list
+        }
+    };
+     
+    template <typename T>
+    void templated_fn(T) {}
+     
+    int main()
+    {
+        S<int> s = {1, 2, 3, 4, 5}; // direct list-initialization
+        s.append({6, 7, 8});        // list-initialization in function call
+     
+        std::cout << "The vector size is now " << s.c_arr().second << " ints:\n";
+     
+        for (auto n : s.v) std::cout << ' ' << n;
+     
+        std::cout << '\n';
+     
+        std::cout << "range-for over brace-init-list: \n";
+     
+        for (int x : {-1, -2, -3}) // the rule for auto makes this ranged for work
+            std::cout << x << ' ';
+        std::cout << '\n';
+     
+        auto al = {10, 11, 12};   // special rule for auto
+     
+        std::cout << "The list bound to auto has size() = " << al.size() << '\n';
+     
+        // templated_fn({1, 2, 3}); // compiler error! "{1, 2, 3}" is not an expression,
+                                    // it has no type, and so T cannot be deduced
+        templated_fn<std::initializer_list<int>>({1, 2, 3}); // OK
+        templated_fn<std::vector<int>>({1, 2, 3});           // also OK
+    }
+
+函数执行结果如下：
+
+    constructed with a 5-element list
+    The vector size is now 8 ints:
+     1 2 3 4 5 6 7 8
+    range-for over brace-init-list: 
+    -1 -2 -3 
+    The list bound to auto has size() = 3
 
 ### 3.2 统一的初始化方式 ###
 ### 3.3 类型推导(auto 和 decltype 关键字) ###
@@ -86,7 +215,6 @@ Decltype 主要对值和表达式的类型推导，decltype 推导规则如下�
 1. 如果表达式 e 是一个变量，那么由 decltype 推导出来的类型就是这个变量的类型。
 2. 如果表达式 e 是一个函数，那么由 decltype 推导出来的类型就是这个函数返回值的类型。
 3. 如果不符合 1 和 2，如果 e 是左值，类型为 T，那么 decltype(e) 是 T&；如果是右值，则是 T。
-
 
 ### 3.4 基于范围的 for 循环 ###
 

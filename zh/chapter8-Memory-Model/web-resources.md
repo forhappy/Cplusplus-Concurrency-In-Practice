@@ -70,3 +70,7 @@
 
 - 《C++0x漫谈》系列之：多线程内存模型：[http://blog.csdn.net/pongba/article/details/1659952](http://blog.csdn.net/pongba/article/details/1659952)
 
+- Lock-Free Algorithms: An Introduction: [http://concurrencykit.org/presentations/lockfree_introduction/index.html](http://concurrencykit.org/presentations/lockfree_introduction/index.html)
+
+- Introduction to Lock-Free Algorithms: Through a case study: [http://concurrencykit.org/presentations/lf1/lf1.pdf
+](http://concurrencykit.org/presentations/lf1/lf1.pdf)
