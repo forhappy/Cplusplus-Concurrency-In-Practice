@@ -1,23 +1,75 @@
 ﻿## 3. 核心语言的可用性强化 ##
 
 ### 3.1 初始化列表(`std::initializer_list`) ###
+
+C++11 标准扩大了初始化列表的概念，
+
+    template< class T >
+    class initializer_list;
+
 ### 3.2 统一的初始化方式 ###
 ### 3.3 类型推导(auto 和 decltype 关键字) ###
 
 C++03 标准中变量和参数必须明确指明类型，但是随着模板类型的出现以及模板元编程的技巧，对象的类型特别是函数的返回类型就不容易表示了。C++11 标准针对上面的情况引入了 auto 和 decltype 关键字(实际上，auto 关键字在旧的 C++ 标准中即存在，只不过在 C++11 标准中新增了类型自动推导语义)。
 
-如果某个对象在初始化时类型已经明确，那么可以 auto 关键字来声明该类型的对象，例如：
+如果某个对象在初始化时类型已经明确，那么可以使用 auto 关键字来简化对象的声明，该对象的类型会根据初始化算子(initializer: 姑且翻译为"初始化算子"吧，包括类的构造函数或某个基本类型的变量值(比方说整型(int) 5)自动推导出来，使用 auto 来声明变量的语法如下：
+
+    auto variable initializer 
+
+例如：
     
     auto otherVariable = 5; // otherVariable 的类型为 int。
     const auto *v = &x, u = 6; // 正确，v 的类型为 const int*, u 的类型为 const int。
     static auto y = 0.0; // y 推导为 double 类型。
     auto int r; // 错误: auto 在 C++11 中不是存储类型修饰符。
 
-auto 类型修饰符也可以出现在带有返回类型的函数（比如 std::vector<T>::begin() 等）的返回值前面，用于指定该函数返回值的类型，在返回值类型很复杂的情况下，auto 的类型推导可以减少大量冗赘代码。例如：
+auto 类型修饰符也可以出现在带有返回类型的函数（比如 `std::vector<T>::begin()` 等）的返回值前面，用于指定该函数返回值的类型，在返回值类型很复杂的情况下，auto 的类型推导可以减少大量冗赘代码。例如：
 
     // someStrangeCallableType 是某个类的成员函数类型，该类型也可以使用 std::function<> 来声明。
     auto someStrangeCallableType = std::bind(&SomeFunction, _2, _1, someObject);
 
+auto 的另外一种用法是修饰函数，主要用于函数声明，在很多情况下，我们并不能提前知道函数的返回值类型(即函数的返回值类型通常由其参数决定)，那么此时  auto 关键字就可以派上用场了，auto 关键字修饰函数的语法如下：
+
+    auto function -> return type
+
+请看下面完整的例子：[参考](http://en.cppreference.com/w/cpp/language/auto)
+
+    #include <iostream>
+    #include <cmath>
+    #include <typeinfo>
+     
+    template<class T, class U>
+    auto add(T t, U u) -> decltype(t + u) // the return type of add is the type of operator+(T,U)
+    {
+        return t + u;
+    }
+     
+    auto get_fun(int arg)->double(*)(double) // same as double (*get_fun(int))(double)
+    {
+        switch (arg) {
+            case 1: return std::fabs;
+            case 2: return std::sin;
+            default: return std::cos;
+        }
+    }
+     
+    int main()
+    {
+        auto a = 1 + 2;
+        std::cout << "type of a: " << typeid(a).name() << '\n';
+        auto b = add(1, 1.2);
+        std::cout << "type of b: " << typeid(b).name() << '\n';
+        //auto int c; //compile-time error
+        auto d = {1, 2};
+        std::cout << "type of d: " << typeid(d).name() << '\n';
+     
+        auto my_lambda = [](int x) { return x + 3; };
+        std::cout << "my_lambda: " << my_lambda(5) << '\n';
+     
+        auto my_fun = get_fun(2);
+        std::cout << "type of my_fun: " << typeid(my_fun).name() << '\n';
+        std::cout << "my_fun: " << my_fun(3) << '\n';
+    }
 
 decltype 和 auto 一起使用会更为有用，因为 auto 参数的类型只有编译器知道。然而 decltype 对于那些大量运用运算符重载和特化的类型的代码的表示也非常有用。
 
