@@ -450,6 +450,20 @@ Ret 的类型由 LHS 与 RHS 相加之后的结果的类型来决定。 即使�
 
 ### 3.7 对象创建优化 ###
 
+在 C++11 中，一个构造函数可以调用该类中的其它构造函数来完成部分初始化任务（类似于 C# 中的委托）。声明成员时可以直接指定默认初始值，例如：
+
+    class SomeType {
+      int number;
+      string name;
+      SomeType( int i, string& s ) : number(i), name(s){}
+    public:
+      SomeType( )           : SomeType( 0, "invalid" ){}
+      SomeType( int i )     : SomeType( i, "guest" ){}
+      SomeType( string& s ) : SomeType( 1, s ){ PostInit(); }
+    };
+
+委托可以在一定程度上简化与类初始化相关代码，也更利于编译器优化。
+
 ### 3.8 显式虚函数重载 ###
 
 ### 3.9 空指针常量(nullptr) ###
@@ -526,6 +540,45 @@ nullptr 作为函数参数也通过模板类型进行转发，请参考下例：
     }
 
 ### 3.10 强类型枚举 ###
+
+> 本小节主要来自维基百科中文词条 [C+11 强类型枚举](http://zh.wikipedia.org/zh-cn/C%2B%2B11#.E5.BC.B7.E5.9E.8B.E5.88.A5.E5.88.97.E8.88.89) 一节
+
+在标准 C++ 中，枚举类型不是类型安全的。枚举类型被视为整数，这使得两种不同的枚举类型之间可以进行比较。C++03 唯一提供的安全机制是一个整数或一个枚举型值不能隐式转换到另一个枚举别型。
+
+此外，枚举所使用整数类型及其大小都由实现方法定义，无法明确指定。 最后，枚举的名称全数暴露于一般作用域中，因此两个不同的枚举，不可以有相同的枚举名。 (例如 `enum Side{ Right, Left };` 和 `enum Thing{ Wrong, Right };` 不能一起使用。)
+
+C++11 引入了一种特别的 "枚举类"，可以避免上述的问题。使用 enum class 的语法来声明：
+
+    enum class Enumeration
+    {
+      Val1,
+      Val2,
+      Val3 = 100,
+      Val4 /* = 101 */,
+    };
+
+上述枚举为类型安全的。枚举类型不能隐式地转换为整数；也无法与整数数值做比较。 (表达式 Enumeration::Val4 == 101 将会触发编译期错误)。
+
+枚举类型所使用类型必须显式指定。在上面的示例中，使用的是默认类型 int，但也可以指定其他类型：
+
+    enum class Enum2 : unsigned int {Val1, Val2};
+
+枚举类型的作用域(scoping)定义为枚举类型的名称范围中。 使用枚举类型的枚举名时，必须明确指定其所属范围。 以前述枚举类型 `Enum2` 为例，`Enum2::Val1` 是有意义的表示法， 而单独的 `Val1` 则不是有意义的表示法。
+
+此外，C++11 允许为传统的枚举指定类型：
+
+    enum Enum3 : unsigned long {Val1 = 1, Val2};
+
+枚举名 `Val1` 定义于 `Enum3` 的枚举范围中(`Enum3::Val1`)，但为了兼容性， `Val1` 仍然可以于一般的范围中单独使用。
+
+在 C++11 中，枚举类型的前置声明 (forward declaration) 也是可行的，只要使用可指定类型的新式枚举即可。 之前的 C++ 无法写出枚举的前置声明，是由于无法确定枚举参数所占的空间大小， C++11 解决了这个问题：
+
+    enum Enum1;                     // 不合法的 C++ 与 C++11; 无法判別大小
+    enum Enum2 : unsigned int;      // 合法的 C++11
+    enum class Enum3;               // 合法的 C++11，枚举类型默认为 int
+    enum class Enum4: unsigned int; // 合法的 C++11
+    enum Enum2 : unsigned short;    // 不合法的 C++11，Enum2 已被声明为 unsigned int
+
 ### 3.11 右尖括号(>) ###
 
 标准 C++03 的语法分析器一律将 ">>" 视为右移运算符。 但在模板定义式中，很多情况下 ">>" 其实代表了两个连续右角括号。C++11 新标准不在要求声明嵌套模板时使用空格将尖括号分开。
