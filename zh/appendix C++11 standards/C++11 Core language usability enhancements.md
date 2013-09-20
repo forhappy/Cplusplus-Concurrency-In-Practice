@@ -531,5 +531,42 @@ nullptr 作为函数参数也通过模板类型进行转发，请参考下例：
 标准 C++03 的语法分析器一律将 ">>" 视为右移运算符。 但在模板定义式中，很多情况下 ">>" 其实代表了两个连续右角括号。C++11 新标准不在要求声明嵌套模板时使用空格将尖括号分开。
 
 ### 3.12 显式类型转换操作符 ###
+
+
 ### 3.13 模板别名 ###
+
+为了定义模板的别名，C++11 增加了以下的语法：
+
+    template< typename first, typename second, int third>
+    class SomeType;
+ 
+    template< typename second>
+    using TypedefName = SomeType<OtherType, second, 5>;
+
+`using` 也能在 C++11 中定义一般类型的别名，等同 `typedef`：
+
+    typedef void (*Function)(double);            // 传统语法
+    using Function = void (*)(double);           // C++11 新增语法
+
 ### 3.14 无限制 union ###
+
+在标准 C++ 中，并非任意的类型都能做为 `union` 的成员。比方说，带有 `non-trivial` 构造函数的类型就不能是 `union` 的成员。在新的标准里，移除了所有对 `union` 的使用限制，但规定 `union` 的成员不能为引用类型。 
+
+请看下例：
+
+    struct Point
+    {
+      Point() {}
+      Point(int x, int y): x_(x), y_(y) {}
+      int x_, y_;
+    };
+    
+    union
+    {
+      int z;
+      double w;
+      Point p;  // 在 C++03 标准中非法; Point 有一 non-trivial 构造函数
+                // 但是在 C++11 标准中合法
+    };
+
+
