@@ -59,3 +59,9 @@ Multithreading in C++0x part 1: Starting Threads：[http://www.justsoftwaresolut
 [http://en.cppreference.com/w/cpp/thread](http://en.cppreference.com/w/cpp/thread)
 
 [http://www.cplusplus.com/reference/multithreading/](http://www.cplusplus.com/reference/multithreading/)
+
+Parallelism is not concurrency: [http://existentialtype.wordpress.com/2011/03/17/parallelism-is-not-concurrency/](http://existentialtype.wordpress.com/2011/03/17/parallelism-is-not-concurrency/)
+
+Concurrent and Parallel Programming: [http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html](http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html)
+
+Parallelism /= Concurrency: [http://ghcmutterings.wordpress.com/2009/10/06/parallelism-concurrency/](http://ghcmutterings.wordpress.com/2009/10/06/parallelism-concurrency/)
