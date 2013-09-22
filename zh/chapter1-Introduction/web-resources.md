@@ -73,3 +73,5 @@ Concurrency is not Parallelism: [http://concur.rspace.googlecode.com/hg/talk/con
 Concurrency vs Parallelism - What is the difference?: [http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference](http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference)
 
 Difference between concurrent programming and parallel programming: [http://stackoverflow.com/questions/1897993/difference-between-concurrent-programming-and-parallel-programming?rq=1](http://stackoverflow.com/questions/1897993/difference-between-concurrent-programming-and-parallel-programming?rq=1)
+
+Parallelism and concurrency need different tools: [http://www.yosefk.com/blog/parallelism-and-concurrency-need-different-tools.html](http://www.yosefk.com/blog/parallelism-and-concurrency-need-different-tools.html)
