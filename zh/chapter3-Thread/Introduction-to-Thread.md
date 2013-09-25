@@ -302,9 +302,9 @@ thread&amp; operator=(const thread&amp;) = delete;
 
 调用 detach 函数之后：
 
-- `*this` 不再代表任何的线程执行实例。
-- joinable() == false
-- get_id() == std::thread::id()
+1. `*this` 不再代表任何的线程执行实例。
+2. joinable() == false
+3. get_id() == std::thread::id()
 
 另外，如果出错或者 `joinable() == false`，则会抛出 `std::system_error`.
 
@@ -440,6 +440,88 @@ thread&amp; operator=(const thread&amp;) = delete;
 ## `std::this_thread` 命名空间中相关辅助函数介绍 ##
 
 - get_id: 获取线程 ID。
+
+        #include <iostream>
+        #include <thread>
+        #include <chrono>
+        #include <mutex>
+         
+        std::mutex g_display_mutex;
+         
+        void foo()
+        {
+            std::thread::id this_id = std::this_thread::get_id();
+         
+            g_display_mutex.lock();
+            std::cout << "thread " << this_id << " sleeping...\n";
+            g_display_mutex.unlock();
+         
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        int main()
+        {
+            std::thread t1(foo);
+            std::thread t2(foo);
+         
+            t1.join();
+            t2.join();
+        }
+
 - yield: 当前线程放弃执行，操作系统调度另一线程继续执行。
+
+        #include <iostream>
+        #include <chrono>
+        #include <thread>
+         
+        // "busy sleep" while suggesting that other threads run 
+        // for a small amount of time
+        void little_sleep(std::chrono::microseconds us)
+        {
+            auto start = std::chrono::high_resolution_clock::now();
+            auto end = start + us;
+            do {
+                std::this_thread::yield();
+            } while (std::chrono::high_resolution_clock::now() < end);
+        }
+         
+        int main()
+        {
+            auto start = std::chrono::high_resolution_clock::now();
+         
+            little_sleep(std::chrono::microseconds(100));
+         
+            auto elapsed = std::chrono::high_resolution_clock::now() - start;
+            std::cout << "waited for "
+                      << std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count()
+                      << " microseconds\n";
+        }
+
 - sleep_until: 线程休眠至某个指定的时刻(time point)，该线程才被重新唤醒。
-- sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒。
+
+        template< class Clock, class Duration >
+        void sleep_until( const std::chrono::time_point<Clock,Duration>& sleep_time );
+
+
+
+- sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒，不过由于线程调度等原因，实际休眠时间可能比 `sleep_duration` 所表示的时间片更长。
+
+        template< class Rep, class Period >
+        void sleep_for( const std::chrono::duration<Rep,Period>& sleep_duration );
+
+        #include <iostream>
+        #include <chrono>
+        #include <thread>
+         
+        int main()
+        {
+            std::cout << "Hello waiter" << std::endl;
+            std::chrono::milliseconds dura( 2000 );
+            std::this_thread::sleep_for( dura );
+            std::cout << "Waited 2000 ms\n";
+        }
+
+执行结果如下：
+
+    Hello waiter
+    Waited 2000 ms
