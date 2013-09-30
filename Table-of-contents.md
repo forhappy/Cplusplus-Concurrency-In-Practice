@@ -3,8 +3,8 @@
 
 ## 第一章 并发编程基础 ##
 
-### 1.1 什么是并发编程 ###
-### 1.2 并发与并行的区别和联系 ###
+### 1.1 [什么是并发编程](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/1.1%20What%20is%20concurrency.md) ###
+### 1.2 [并发与并行的区别和联系](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/1.1%20What%20is%20concurrency.md#12-%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%B9%B6%E8%A1%8C%E7%9A%84%E8%81%94%E7%B3%BB%E5%92%8C%E5%8C%BA%E5%88%AB) ###
 ### 1.3 为什么需要并发编程 ###
 ### 1.4 并发编程应用场景和经典示例 ###
 ### 1.5 [C++ 并发编程初探](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/Cplusplus-Concurrency-Introduction.md) ###
