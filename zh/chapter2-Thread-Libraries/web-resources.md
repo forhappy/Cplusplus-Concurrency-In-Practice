@@ -1,0 +1,2 @@
+﻿- Multithreaded Programming (POSIX pthreads Tutorial): [http://randu.org/tutorials/threads/](http://randu.org/tutorials/threads/)
+- [http://www.yolinux.com/TUTORIALS/LinuxTutorialPosixThreads.html](http://www.yolinux.com/TUTORIALS/LinuxTutorialPosixThreads.html)
