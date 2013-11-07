@@ -27,6 +27,10 @@
 - Thin Lock Implementation: [http://bartoszmilewski.com/2008/08/16/thin-lock-implementation/](http://bartoszmilewski.com/2008/08/16/thin-lock-implementation/)
 
 
+## Sutter’s Mill ##
+
+- atomic Weapons: The C++ Memory Model and Modern Hardware: [http://herbsutter.com/2013/02/11/atomic-weapons-the-c-memory-model-and-modern-hardware/](http://herbsutter.com/2013/02/11/atomic-weapons-the-c-memory-model-and-modern-hardware/)
+
 ## [Preshing on programming](http://preshing.com/) ##
 
 - Memory Reordering Caught in the Act: [http://preshing.com/20120515/memory-reordering-caught-in-the-act](http://preshing.com/20120515/memory-reordering-caught-in-the-act)
