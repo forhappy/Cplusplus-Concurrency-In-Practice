@@ -27,6 +27,10 @@
 - Thin Lock Implementation: [http://bartoszmilewski.com/2008/08/16/thin-lock-implementation/](http://bartoszmilewski.com/2008/08/16/thin-lock-implementation/)
 
 
+## Sutter’s Mill ##
+
+- atomic Weapons: The C++ Memory Model and Modern Hardware: [http://herbsutter.com/2013/02/11/atomic-weapons-the-c-memory-model-and-modern-hardware/](http://herbsutter.com/2013/02/11/atomic-weapons-the-c-memory-model-and-modern-hardware/)
+
 ## [Preshing on programming](http://preshing.com/) ##
 
 - Memory Reordering Caught in the Act: [http://preshing.com/20120515/memory-reordering-caught-in-the-act](http://preshing.com/20120515/memory-reordering-caught-in-the-act)
@@ -48,3 +52,29 @@
 - The Happens-Before Relation: [http://preshing.com/20130702/the-happens-before-relation](http://preshing.com/20130702/the-happens-before-relation)
 
 - The Synchronizes-With Relation: [http://preshing.com/20130823/the-synchronizes-with-relation](http://preshing.com/20130823/the-synchronizes-with-relation)
+
+## [parallellabs.com](http://www.parallellabs.com) ##
+
+- 浅析C++多线程内存模型: [http://www.parallellabs.com/2011/08/27/c-plus-plus-memory-model/](http://www.parallellabs.com/2011/08/27/c-plus-plus-memory-model/)
+- 为什么程序员需要关心顺序一致性（Sequential Consistency）而不是Cache一致性（Cache Coherence？）:[http://www.parallellabs.com/2010/03/06/why-should-programmer-care-about-sequential-consistency-rather-than-cache-coherence/](http://www.parallellabs.com/2010/03/06/why-should-programmer-care-about-sequential-consistency-rather-than-cache-coherence/)
+- 多线程程序中操作的原子性: [http://www.parallellabs.com/2010/04/15/atomic-operation-in-multithreaded-application/](http://www.parallellabs.com/2010/04/15/atomic-operation-in-multithreaded-application/)
+- 并行编程中的“锁”难题: [http://www.parallellabs.com/2011/10/02/lock-in-parallel-programming/](http://www.parallellabs.com/2011/10/02/lock-in-parallel-programming/)
+- Pthreads并行编程之spin lock与mutex性能对比分析: [http://www.parallellabs.com/2010/01/31/pthreads-programming-spin-lock-vs-mutex-performance-analysis/](http://www.parallellabs.com/2010/01/31/pthreads-programming-spin-lock-vs-mutex-performance-analysis/)
+- 多核与异步并行: [http://www.parallellabs.com/2013/01/21/multicore-and-asynchronous-communication/](http://www.parallellabs.com/2013/01/21/multicore-and-asynchronous-communication/)
+- 多线程队列的算法优化: [http://www.parallellabs.com/2010/10/25/practical-concurrent-queue-algorithm/](http://www.parallellabs.com/2010/10/25/practical-concurrent-queue-algorithm/)
+- 剖析为什么在多核多线程程序中要慎用volatile关键字？: [http://www.parallellabs.com/2010/12/04/why-should-we-be-care-of-volatile-keyword-in-multithreaded-applications/](http://www.parallellabs.com/2010/12/04/why-should-we-be-care-of-volatile-keyword-in-multithreaded-applications/)
+- 多线程程序常见Bug剖析（上）: [http://www.parallellabs.com/2010/11/13/concurrency-bugs-1/](http://www.parallellabs.com/2010/11/13/concurrency-bugs-1/)
+- 多线程程序常见Bug剖析（下）: [http://www.parallellabs.com/2010/11/23/concurrency-bugs-2/](http://www.parallellabs.com/2010/11/23/concurrency-bugs-2/)
+
+## 其他资源 ##
+
+- Threads and memory model for C++: [http://www.hpl.hp.com/personal/Hans_Boehm/c++mm/](http://www.hpl.hp.com/personal/Hans_Boehm/c++mm/)
+
+- 内存屏障什么的: [http://www.spongeliu.com/233.html](http://www.spongeliu.com/233.html)
+
+- 《C++0x漫谈》系列之：多线程内存模型：[http://blog.csdn.net/pongba/article/details/1659952](http://blog.csdn.net/pongba/article/details/1659952)
+
+- Lock-Free Algorithms: An Introduction: [http://concurrencykit.org/presentations/lockfree_introduction/index.html](http://concurrencykit.org/presentations/lockfree_introduction/index.html)
+
+- Introduction to Lock-Free Algorithms: Through a case study: [http://concurrencykit.org/presentations/lf1/lf1.pdf
+](http://concurrencykit.org/presentations/lf1/lf1.pdf)

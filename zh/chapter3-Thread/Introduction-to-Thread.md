@@ -214,17 +214,314 @@ thread&amp; operator=(const thread&amp;) = delete;
 
 ### 其他成员函数 ###
 
-- `get_id`: 获取线程 ID。
-- `joinable`: 检查线程是否可被 join。
-- `join`: Join 线程。
+> 本小节例子来自 [http://en.cppreference.com ](http://en.cppreference.com/w/cpp/thread/thread)
+
+- `get_id`: 获取线程 ID，返回一个类型为 `std::thread::id` 的对象。请看下面例子：
+
+        #include <iostream>
+        #include <thread>
+        #include <chrono>
+         
+        void foo()
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        int main()
+        {
+            std::thread t1(foo);
+            std::thread::id t1_id = t1.get_id();
+         
+            std::thread t2(foo);
+            std::thread::id t2_id = t2.get_id();
+         
+            std::cout << "t1's id: " << t1_id << '\n';
+            std::cout << "t2's id: " << t2_id << '\n';
+         
+            t1.join();
+            t2.join();
+        }
+
+- `joinable`: 检查线程是否可被 join。检查当前的线程对象是否表示了一个活动的执行线程，由默认构造函数创建的线程是不能被 join 的。另外，如果某个线程 已经执行完任务，但是没有被 join 的话，该线程依然会被认为是一个活动的执行线程，因此也是可以被 join 的。
+
+        #include <iostream>
+        #include <thread>
+        #include <chrono>
+         
+        void foo()
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        int main()
+        {
+            std::thread t;
+            std::cout << "before starting, joinable: " << t.joinable() << '\n';
+         
+            t = std::thread(foo);
+            std::cout << "after starting, joinable: " << t.joinable() << '\n';
+         
+            t.join();
+        }
+
+- `join`: Join 线程，调用该函数会阻塞当前线程，直到由 `*this` 所标示的线程执行完毕 join 才返回。
+
+        #include <iostream>
+        #include <thread>
+        #include <chrono>
+         
+        void foo()
+        {
+            // simulate expensive operation
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        void bar()
+        {
+            // simulate expensive operation
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        int main()
+        {
+            std::cout << "starting first helper...\n";
+            std::thread helper1(foo);
+         
+            std::cout << "starting second helper...\n";
+            std::thread helper2(bar);
+         
+            std::cout << "waiting for helpers to finish..." << std::endl;
+            helper1.join();
+            helper2.join();
+         
+            std::cout << "done!\n";
+        }
+
 - `detach`: Detach 线程。
-- `swap`: Swap 线程 。
-- `native_handle`: 返回 native handle。
-- `hardware_concurrency` [static]: 检测硬件并发特性。
+将当前线程对象所代表的执行实例与该线程对象分离，使得线程的执行可以单独进行。一旦线程执行完毕，它所分配的资源将会被释放。
+
+调用 detach 函数之后：
+
+1. `*this` 不再代表任何的线程执行实例。
+2. joinable() == false
+3. get_id() == std::thread::id()
+
+另外，如果出错或者 `joinable() == false`，则会抛出 `std::system_error`.
+
+        #include <iostream>
+        #include <chrono>
+        #include <thread>
+         
+        void independentThread() 
+        {
+            std::cout << "Starting concurrent thread.\n";
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+            std::cout << "Exiting concurrent thread.\n";
+        }
+         
+        void threadCaller() 
+        {
+            std::cout << "Starting thread caller.\n";
+            std::thread t(independentThread);
+            t.detach();
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            std::cout << "Exiting thread caller.\n";
+        }
+         
+        int main() 
+        {
+            threadCaller();
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+        }
+
+- `swap`: Swap 线程，交换两个线程对象所代表的底层句柄(underlying handles)。
+
+        #include <iostream>
+        #include <thread>
+        #include <chrono>
+         
+        void foo()
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        void bar()
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        int main()
+        {
+            std::thread t1(foo);
+            std::thread t2(bar);
+         
+            std::cout << "thread 1 id: " << t1.get_id() << std::endl;
+            std::cout << "thread 2 id: " << t2.get_id() << std::endl;
+         
+            std::swap(t1, t2);
+         
+            std::cout << "after std::swap(t1, t2):" << std::endl;
+            std::cout << "thread 1 id: " << t1.get_id() << std::endl;
+            std::cout << "thread 2 id: " << t2.get_id() << std::endl;
+         
+            t1.swap(t2);
+         
+            std::cout << "after t1.swap(t2):" << std::endl;
+            std::cout << "thread 1 id: " << t1.get_id() << std::endl;
+            std::cout << "thread 2 id: " << t2.get_id() << std::endl;
+         
+            t1.join();
+            t2.join();
+        }
+
+执行结果如下：
+
+    thread 1 id: 1892
+    thread 2 id: 2584
+    after std::swap(t1, t2):
+    thread 1 id: 2584
+    thread 2 id: 1892
+    after t1.swap(t2):
+    thread 1 id: 1892
+    thread 2 id: 2584
+
+- `native_handle`: 返回 native handle（由于 `std::thread` 的实现和操作系统相关，因此该函数返回与 `std::thread` 具体实现相关的线程句柄，例如在符合 Posix 标准的平台下(如 Unix/Linux)是 Pthread 库）。
+
+        #include <thread>
+        #include <iostream>
+        #include <chrono>
+        #include <cstring>
+        #include <pthread.h>
+         
+        std::mutex iomutex;
+        void f(int num)
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+         
+           sched_param sch;
+           int policy; 
+           pthread_getschedparam(pthread_self(), &policy, &sch);
+           std::lock_guard<std::mutex> lk(iomutex);
+           std::cout << "Thread " << num << " is executing at priority "
+                     << sch.sched_priority << '\n';
+        }
+         
+        int main()
+        {
+            std::thread t1(f, 1), t2(f, 2);
+         
+            sched_param sch;
+            int policy; 
+            pthread_getschedparam(t1.native_handle(), &policy, &sch);
+            sch.sched_priority = 20;
+            if(pthread_setschedparam(t1.native_handle(), SCHED_FIFO, &sch)) {
+                std::cout << "Failed to setschedparam: " << std::strerror(errno) << '\n';
+            }
+         
+            t1.join();
+            t2.join();
+        }
+
+执行结果如下：
+
+    Thread 2 is executing at priority 0
+    Thread 1 is executing at priority 20
+
+- `hardware_concurrency` [static]: 检测硬件并发特性，返回当前平台的线程实现所支持的线程并发数目，但返回值仅仅只作为系统提示(hint)。
+
+        #include <iostream>
+        #include <thread>
+         
+        int main() {
+            unsigned int n = std::thread::hardware_concurrency();
+            std::cout << n << " concurrent threads are supported.\n";
+        }
 
 ## `std::this_thread` 命名空间中相关辅助函数介绍 ##
 
 - get_id: 获取线程 ID。
+
+        #include <iostream>
+        #include <thread>
+        #include <chrono>
+        #include <mutex>
+         
+        std::mutex g_display_mutex;
+         
+        void foo()
+        {
+            std::thread::id this_id = std::this_thread::get_id();
+         
+            g_display_mutex.lock();
+            std::cout << "thread " << this_id << " sleeping...\n";
+            g_display_mutex.unlock();
+         
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+         
+        int main()
+        {
+            std::thread t1(foo);
+            std::thread t2(foo);
+         
+            t1.join();
+            t2.join();
+        }
+
 - yield: 当前线程放弃执行，操作系统调度另一线程继续执行。
+
+        #include <iostream>
+        #include <chrono>
+        #include <thread>
+         
+        // "busy sleep" while suggesting that other threads run 
+        // for a small amount of time
+        void little_sleep(std::chrono::microseconds us)
+        {
+            auto start = std::chrono::high_resolution_clock::now();
+            auto end = start + us;
+            do {
+                std::this_thread::yield();
+            } while (std::chrono::high_resolution_clock::now() < end);
+        }
+         
+        int main()
+        {
+            auto start = std::chrono::high_resolution_clock::now();
+         
+            little_sleep(std::chrono::microseconds(100));
+         
+            auto elapsed = std::chrono::high_resolution_clock::now() - start;
+            std::cout << "waited for "
+                      << std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count()
+                      << " microseconds\n";
+        }
+
 - sleep_until: 线程休眠至某个指定的时刻(time point)，该线程才被重新唤醒。
-- sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒。
+
+        template< class Clock, class Duration >
+        void sleep_until( const std::chrono::time_point<Clock,Duration>& sleep_time );
+
+
+
+- sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒，不过由于线程调度等原因，实际休眠时间可能比 `sleep_duration` 所表示的时间片更长。
+
+        template< class Rep, class Period >
+        void sleep_for( const std::chrono::duration<Rep,Period>& sleep_duration );
+
+        #include <iostream>
+        #include <chrono>
+        #include <thread>
+         
+        int main()
+        {
+            std::cout << "Hello waiter" << std::endl;
+            std::chrono::milliseconds dura( 2000 );
+            std::this_thread::sleep_for( dura );
+            std::cout << "Waited 2000 ms\n";
+        }
+
+执行结果如下：
+
+    Hello waiter
+    Waited 2000 ms

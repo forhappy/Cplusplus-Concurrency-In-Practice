@@ -59,3 +59,19 @@ Multithreading in C++0x part 1: Starting Threads：[http://www.justsoftwaresolut
 [http://en.cppreference.com/w/cpp/thread](http://en.cppreference.com/w/cpp/thread)
 
 [http://www.cplusplus.com/reference/multithreading/](http://www.cplusplus.com/reference/multithreading/)
+
+Parallelism is not concurrency: [http://existentialtype.wordpress.com/2011/03/17/parallelism-is-not-concurrency/](http://existentialtype.wordpress.com/2011/03/17/parallelism-is-not-concurrency/)
+
+Concurrent and Parallel Programming: [http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html](http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html)
+
+Parallelism /= Concurrency: [http://ghcmutterings.wordpress.com/2009/10/06/parallelism-concurrency/](http://ghcmutterings.wordpress.com/2009/10/06/parallelism-concurrency/)
+
+Parallelism vs. Concurrency: [http://www.haskell.org/haskellwiki/Parallelism_vs._Concurrency](http://www.haskell.org/haskellwiki/Parallelism_vs._Concurrency)
+
+Concurrency is not Parallelism: [http://concur.rspace.googlecode.com/hg/talk/concur.html#title-slide](http://concur.rspace.googlecode.com/hg/talk/concur.html#title-slide)
+
+Concurrency vs Parallelism - What is the difference?: [http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference](http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference)
+
+Difference between concurrent programming and parallel programming: [http://stackoverflow.com/questions/1897993/difference-between-concurrent-programming-and-parallel-programming?rq=1](http://stackoverflow.com/questions/1897993/difference-between-concurrent-programming-and-parallel-programming?rq=1)
+
+Parallelism and concurrency need different tools: [http://www.yosefk.com/blog/parallelism-and-concurrency-need-different-tools.html](http://www.yosefk.com/blog/parallelism-and-concurrency-need-different-tools.html)
