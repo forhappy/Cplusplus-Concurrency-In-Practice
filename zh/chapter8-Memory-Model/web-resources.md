@@ -78,3 +78,4 @@
 
 - Introduction to Lock-Free Algorithms: Through a case study: [http://concurrencykit.org/presentations/lf1/lf1.pdf
 ](http://concurrencykit.org/presentations/lf1/lf1.pdf)
+- memory_order:[http://en.cppreference.com/w/cpp/atomic/memory_order](http://en.cppreference.com/w/cpp/atomic/memory_order)
