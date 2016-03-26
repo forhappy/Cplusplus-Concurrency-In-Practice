@@ -438,7 +438,7 @@ thread&amp; operator=(const thread&amp;) = delete;
     Thread 1 is executing at priority 20
 
 - `hardware_concurrency` [static]: 检测硬件并发特性，返回当前平台的线程实现所支持的线程并发数目，但返回值仅仅只作为系统提示(hint)。
-
+```cpp
         #include <iostream>
         #include <thread>
          
@@ -446,11 +446,12 @@ thread&amp; operator=(const thread&amp;) = delete;
             unsigned int n = std::thread::hardware_concurrency();
             std::cout << n << " concurrent threads are supported.\n";
         }
+```
 
 ## `std::this_thread` 命名空间中相关辅助函数介绍 ##
 
 - get_id: 获取线程 ID。
-
+```cpp
         #include <iostream>
         #include <thread>
         #include <chrono>
@@ -477,9 +478,10 @@ thread&amp; operator=(const thread&amp;) = delete;
             t1.join();
             t2.join();
         }
+```
 
 - yield: 当前线程放弃执行，操作系统调度另一线程继续执行。
-
+```cpp
         #include <iostream>
         #include <chrono>
         #include <thread>
@@ -506,16 +508,17 @@ thread&amp; operator=(const thread&amp;) = delete;
                       << std::chrono::duration_cast<std::chrono::microseconds>(elapsed).count()
                       << " microseconds\n";
         }
+```
 
 - sleep_until: 线程休眠至某个指定的时刻(time point)，该线程才被重新唤醒。
-
+```cpp
         template< class Clock, class Duration >
         void sleep_until( const std::chrono::time_point<Clock,Duration>& sleep_time );
-
+```
 
 
 - sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒，不过由于线程调度等原因，实际休眠时间可能比 `sleep_duration` 所表示的时间片更长。
-
+```cpp
         template< class Rep, class Period >
         void sleep_for( const std::chrono::duration<Rep,Period>& sleep_duration );
 
@@ -530,6 +533,7 @@ thread&amp; operator=(const thread&amp;) = delete;
             std::this_thread::sleep_for( dura );
             std::cout << "Waited 2000 ms\n";
         }
+```
 
 执行结果如下：
 
