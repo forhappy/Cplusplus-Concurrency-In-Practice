@@ -7,6 +7,7 @@
 `<thread>` 头文件声明了 std::thread 线程类及 `std::swap` (交换两个线程对象)辅助函数。另外命名空间 `std::this_thread` 也声明在 `<thread>` 头文件中。下面是 C++11 标准所定义的 `<thread>` 头文件摘要：
 
 >参见 N3242=11-0012 草案第 30.3 节 Threads(p1133)。
+
 ```cpp
 namespace std {
     #define __STDCPP_THREADS__ __cplusplus
@@ -30,8 +31,8 @@ namespace std {
 
 ### `std::thread` 类摘要 ###
 
-`std::thread` 代表了一个线程对象，C++11 标准声明如下：
-
+`std::thread` 代表了一个线程对象，C++11 标准声明如下： 
+```cpp
     namespace std {
         class thread {
             public:
@@ -60,9 +61,10 @@ namespace std {
                 static unsigned hardware_concurrency() noexcept;
         };
     }
+```
 
 `std::thread` 中主要声明三类函数：(1). 构造函数、拷贝构造函数及析构函数；(2). 成员函数；(3). 静态成员函数。另外， `std::thread::id` 表示线程 ID，同时 C++11 声明如下：
-
+```cpp
     namespace std {
         class thread::id {
             public:
@@ -85,6 +87,7 @@ namespace std {
         template <class T> struct hash;
         template <> struct hash<thread::id>;
     }
+```
 
 ## `std::thread` 详解 ##
 
@@ -124,7 +127,7 @@ thread(thread&amp;&amp; x) noexcept;
 >注意：可被 `joinable` 的 `std::thread` 对象必须在他们销毁之前被主线程 `join` 或者将其设置为 `detached`.
 
 std::thread 各种构造函数例子如下（[参考](http://en.cppreference.com/w/cpp/thread/thread/thread)）：
-
+```cpp
     #include <iostream>
     #include <utility>
     #include <thread>
@@ -160,6 +163,7 @@ std::thread 各种构造函数例子如下（[参考](http://en.cppreference.com
         t4.join();
         std::cout << "Final value of n is " << n << '\n';
     }
+```
 
 #### `std::thread` 赋值操作 ####
 
@@ -182,7 +186,7 @@ thread&amp; operator=(const thread&amp;) = delete;
 2. 拷贝赋值操作(2)，被禁用，因此 `std::thread` 对象不可拷贝赋值。
 
 请看下面的例子：
-
+```cpp
     #include <stdio.h>
     #include <stdlib.h>
 
@@ -212,13 +216,13 @@ thread&amp; operator=(const thread&amp;) = delete;
 
         return EXIT_SUCCESS;
     }
-
+```
 ### 其他成员函数 ###
 
 > 本小节例子来自 [http://en.cppreference.com ](http://en.cppreference.com/w/cpp/thread/thread)
 
 - `get_id`: 获取线程 ID，返回一个类型为 `std::thread::id` 的对象。请看下面例子：
-
+```cpp
         #include <iostream>
         #include <thread>
         #include <chrono>
@@ -242,9 +246,10 @@ thread&amp; operator=(const thread&amp;) = delete;
             t1.join();
             t2.join();
         }
+```
 
 - `joinable`: 检查线程是否可被 join。检查当前的线程对象是否表示了一个活动的执行线程，由默认构造函数创建的线程是不能被 join 的。另外，如果某个线程 已经执行完任务，但是没有被 join 的话，该线程依然会被认为是一个活动的执行线程，因此也是可以被 join 的。
-
+```cpp
         #include <iostream>
         #include <thread>
         #include <chrono>
@@ -264,9 +269,9 @@ thread&amp; operator=(const thread&amp;) = delete;
          
             t.join();
         }
-
+``` 
 - `join`: Join 线程，调用该函数会阻塞当前线程，直到由 `*this` 所标示的线程执行完毕 join 才返回。
-
+```cpp
         #include <iostream>
         #include <thread>
         #include <chrono>
@@ -297,6 +302,7 @@ thread&amp; operator=(const thread&amp;) = delete;
          
             std::cout << "done!\n";
         }
+```
 
 - `detach`: Detach 线程。
 将当前线程对象所代表的执行实例与该线程对象分离，使得线程的执行可以单独进行。一旦线程执行完毕，它所分配的资源将会被释放。
@@ -308,7 +314,7 @@ thread&amp; operator=(const thread&amp;) = delete;
 3. get_id() == std::thread::id()
 
 另外，如果出错或者 `joinable() == false`，则会抛出 `std::system_error`.
-
+```cpp
         #include <iostream>
         #include <chrono>
         #include <thread>
@@ -334,9 +340,10 @@ thread&amp; operator=(const thread&amp;) = delete;
             threadCaller();
             std::this_thread::sleep_for(std::chrono::seconds(5));
         }
+```
 
 - `swap`: Swap 线程，交换两个线程对象所代表的底层句柄(underlying handles)。
-
+```cpp
         #include <iostream>
         #include <thread>
         #include <chrono>
@@ -374,6 +381,7 @@ thread&amp; operator=(const thread&amp;) = delete;
             t1.join();
             t2.join();
         }
+```
 
 执行结果如下：
 
@@ -387,7 +395,7 @@ thread&amp; operator=(const thread&amp;) = delete;
     thread 2 id: 2584
 
 - `native_handle`: 返回 native handle（由于 `std::thread` 的实现和操作系统相关，因此该函数返回与 `std::thread` 具体实现相关的线程句柄，例如在符合 Posix 标准的平台下(如 Unix/Linux)是 Pthread 库）。
-
+```cpp
         #include <thread>
         #include <iostream>
         #include <chrono>
@@ -422,6 +430,7 @@ thread&amp; operator=(const thread&amp;) = delete;
             t1.join();
             t2.join();
         }
+```
 
 执行结果如下：
 
