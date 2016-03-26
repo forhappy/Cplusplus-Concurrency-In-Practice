@@ -7,22 +7,23 @@
 `<thread>` 头文件声明了 std::thread 线程类及 `std::swap` (交换两个线程对象)辅助函数。另外命名空间 `std::this_thread` 也声明在 `<thread>` 头文件中。下面是 C++11 标准所定义的 `<thread>` 头文件摘要：
 
 >参见 N3242=11-0012 草案第 30.3 节 Threads(p1133)。
+```cpp
+namespace std {
+    #define __STDCPP_THREADS__ __cplusplus
+    class thread;
+    void swap(thread& x, thread& y);
+    namespace this_thread {
+        thread::id get_id();
+        void yield();
 
-    namespace std {
-        #define __STDCPP_THREADS__ __cplusplus
-        class thread;
-        void swap(thread& x, thread& y);
-        namespace this_thread {
-            thread::id get_id();
-            void yield();
+        template <class Clock, class Duration>
+        void sleep_until(const chrono::time_point<Clock, Duration>& abs_time);
 
-            template <class Clock, class Duration>
-            void sleep_until(const chrono::time_point<Clock, Duration>& abs_time);
-
-            template <class Rep, class Period>
-            void sleep_for(const chrono::duration<Rep, Period>& rel_time);
-        }        
+        template <class Rep, class Period>
+        void sleep_for(const chrono::duration<Rep, Period>& rel_time);
     }
+}
+```
 
 `<thread>` 头文件主要声明了 `std::thread` 类，另外在 `std::this_thread` 命名空间中声明了 `get_id`，`yield`，`sleep_until` 以及 `sleep_for` 等辅助函数，本章稍微会详细介绍 `std::thread` 类及相关函数。
 
