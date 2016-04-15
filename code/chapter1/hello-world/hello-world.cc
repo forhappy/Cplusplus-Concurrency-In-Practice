@@ -8,13 +8,13 @@
  *        Created:  09/14/2013 09:41:12 AM
  *
  *         Author:  Fu Haiping (forhappy), haipingf@gmail.com
+ *
  *        Company:  ICT ( Institute Of Computing Technology, CAS )
  *
  * ========================================================================
  */
 
-#include <cstdio>
-#include <cstdlib>
+#include <cstdlib>  // EXIT_SUCCESS
 #include <iostream> // std::cout
 #include <thread>   // std::thread
 
