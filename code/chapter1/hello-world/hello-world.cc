@@ -15,16 +15,19 @@
  */
 
 #include <cstdlib>  // EXIT_SUCCESS
-#include <iostream> // std::cout
-#include <thread>   // std::thread
+#include <iostream> // cout
+#include <thread>   // thread
 
-void thread_task() {
-    std::cout << "hello thread" << std::endl;
+using namespace std;
+
+void thread_task() 
+{
+    cout << "hello thread" << endl;
 }
 
 int main(int argc, const char *argv[])
 {
-    std::thread t(thread_task);
+    thread t(thread_task);
     t.join();
 
     return EXIT_SUCCESS;
