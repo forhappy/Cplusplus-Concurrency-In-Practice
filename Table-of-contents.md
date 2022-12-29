@@ -1,4 +1,4 @@
-﻿# C++ 并发编程指南 #
+# C++ 并发编程指南 #
 本书计划分为 11 章, 分别如下安排:
 
 ## 第一章 并发编程基础 ##
@@ -35,7 +35,7 @@
 ### 3.5 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter3-Thread/web-resources.md "资料汇") ###
 
 
-##第四章 互斥量与锁 ##
+## 第四章 互斥量与锁 ##
 
 ### 4.1 [`<mutex>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/4.1%20Mutex-header-synopsis.md) ###
 
@@ -50,7 +50,7 @@
 ### 4.6 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter4-Mutex/web-resources.md) ###
 
 
-##第五章 条件变量与线程同步 ##
+## 第五章 条件变量与线程同步 ##
 
 ### 5.1 [`<condition_variable>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/5.1%20Condition-variable%20header%20synopsis.md) ###
 
@@ -65,7 +65,7 @@
 ### 5.6 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter5-Condition-Variable/web-resources.md) ###
 
 
-##第六章 异步任务详解 ##
+## 第六章 异步任务详解 ##
 
 ### 6.1 [`<future>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/6.1%20Future-header-synopsis.md) ###
 
@@ -84,7 +84,7 @@
 ### 6.8 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter6-Future/web-resources.md) ###
 
 
-##第七章 原子类型详解  ##
+## 第七章 原子类型详解  ##
 
 ### 7.1 [`<atomic>` 头文件摘要](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/7.1%20Atomic-header-synopsis.md) ###
 
@@ -103,7 +103,7 @@
 ### 7.8 [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter7-Atomic/web-resources.md) ###
 
 
-##第八章 C++11 内存模型 ##
+## 第八章 C++11 内存模型 ##
 
 ### 8.1 C++ 内存模型概述 ###
 ### 8.2 X86 CPU 处理器架构与常见的存储一致性模型简介 ###
@@ -113,18 +113,18 @@
 ### [资料汇](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter8-Memory-Model/web-resources.md) ###
 
 
-##第九章 高级线程管理 ##
+## 第九章 高级线程管理 ##
 
 
-##第十章 如何编写正确的并发数据结构 ##
+## 第十章 如何编写正确的并发数据结构 ##
 
 
-##第十一章 并发编程应用实例 ##
+## 第十一章 并发编程应用实例 ##
 
 ### 11.1 [利用 C++11 并发设施解决生产者消费者问题](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter11-Application/11.1%20Producer-Consumer-solution.md "如何利用 C++11 并发设施解决生产者消费者问题") ###
 
 
-##附录 C++11 新标准概览 ##
+## 附录 C++11 新标准概览 ##
 
 ### 1. [核心语言的运行时性能强化](https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/appendix%20C%2B%2B11%20standards/C%2B%2B11%20Core%20language%20runtime%20performance%20enhancements.md) ###
 
