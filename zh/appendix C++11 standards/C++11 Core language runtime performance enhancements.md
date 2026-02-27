@@ -1,4 +1,4 @@
-﻿## 1. 核心语言的运行时性能强化 ##
+## 1. 核心语言的运行时性能强化 ##
 
 ### 1.1 右值引用和 move 语义 ###
 
@@ -46,7 +46,11 @@ T 是一个类，set 是一个函数为 T 中的一个变量赋值，get 用来�
         forward_value(2); 
     }
 
-虽然 2 这个立即数在函数 forward_value 接收时是右值，但到了 process_value 接收时，变成了左值。
+虽然 2 这个立即数在函数 forward_value 接收时是右值，但到了 process_value 接收时，变成了左值。所以forward_value(2)最终调用的还是process_value的左值版本。在这里如果想让forward_value调用正确的process_value版本，也就是右值版本，我们可以将传递给process_value的参数转化为正确的左/右值:
+	
+	void forward_value(int&& int) {
+		process_value(std::forward<int>(i));
+	}
 
 C++03 性能上被长期被诟病的其中之一，就是其耗时且不必要的深度拷贝。深度拷贝会发生在当对象是以传值的方式传递。举例而言，`std::vector<T>` 是内部保存了 C-style 数组的一个包装，如果一个`std::vector<T>` 的临时对象被建构或是从函数返回，要将其存储只能通过生成新的 `std::vector<T>` 并且把该临时对象所有的数据复制进去。该临时对象和其拥有的内存会被摧毁。(为了讨论上的方便，这里忽略返回值优化)
 
