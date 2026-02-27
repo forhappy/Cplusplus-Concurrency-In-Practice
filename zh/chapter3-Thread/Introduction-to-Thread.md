@@ -468,7 +468,7 @@ thread&amp; operator=(const thread&amp;) = delete;
             t2.join();
         }
 
-- yield: 当前线程放弃执行，操作系统调度另一线程继续执行。
+- yield: 当前线程放弃执行，操作系统调度另一线程继续执行，一般地，系统是会调度另一个相同优先级的线程继续执行，如果当前优先级只有这一个线程，那么yield()没有作用，此时下面的代码输出就还是100。
 
         #include <iostream>
         #include <chrono>
